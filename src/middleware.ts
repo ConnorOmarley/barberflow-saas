@@ -1,0 +1,61 @@
+import { createServerClient, parseCookieHeader } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+
+export async function middleware(request: NextRequest) {
+  const response = NextResponse.next({
+    request: { headers: request.headers },
+  })
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return parseCookieHeader(request.headers.get('cookie') ?? '').map(
+            ({ name, value }) => ({ name, value: value ?? '' })
+          )
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            response.cookies.set(name, value)
+          )
+        },
+      },
+    }
+  )
+
+  // getClaims() validates JWT signature — required for secure server-side auth
+  const { data, error } = await supabase.auth.getClaims()
+  const claims = data?.claims
+  const role = claims?.app_metadata?.role as string | undefined
+  const pathname = request.nextUrl.pathname
+
+  // Rule A — Unauthenticated access to protected routes → redirect to /entrar
+  const isOwnerRoute = pathname.startsWith('/dashboard')
+  const isBarberRoute = pathname.startsWith('/agenda')
+
+  if ((isOwnerRoute || isBarberRoute) && (!claims || error)) {
+    return NextResponse.redirect(new URL('/entrar', request.url))
+  }
+
+  // Rule B — Authenticated user accessing auth pages → redirect to their dashboard
+  const isAuthPage = pathname === '/entrar' || pathname === '/cadastro'
+  if (isAuthPage && claims && !error) {
+    const redirectTo = role === 'barber' ? '/agenda' : '/dashboard'
+    return NextResponse.redirect(new URL(redirectTo, request.url))
+  }
+
+  // Rule C — Role mismatch: barber on owner route → redirect to /agenda
+  if (isOwnerRoute && role === 'barber') {
+    return NextResponse.redirect(new URL('/agenda', request.url))
+  }
+
+  return response
+}
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+  ],
+}
