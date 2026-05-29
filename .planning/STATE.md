@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-05-29)
 ## Current Position
 
 Phase: 0 of 8 (Infrastructure & Multi-Tenancy Baseline)
-Plan: 1 of 8 in current phase (Plan 1 COMPLETE)
-Status: Executing — ready for Plan 2
-Last activity: 2026-05-29 — Plan 1 complete: Next.js 15 scaffold + Supabase migration with RLS
+Plan: 2 of 8 in current phase (Plan 2 COMPLETE)
+Status: Executing — ready for Plan 3
+Last activity: 2026-05-29 — Plan 2 complete: CI RLS assertion scripts and isolation tests
 
-Progress: [█░░░░░░░░░] 4%
+Progress: [██░░░░░░░░] 8%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: ~110 minutes
+- Total plans completed: 2
+- Average duration: ~56 minutes
 - Total execution time: ~1.8 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| Phase 0 | 1/8 | ~110 min | 110 min |
+| Phase 0 | 2/8 | ~112 min | ~56 min |
 
 **Recent Trend:**
-- Last 5 plans: Plan 00-01 (110 min)
+- Last 5 plans: Plan 00-01 (110 min), Plan 00-02 (2 min)
 - Trend: —
 
 *Updated after each plan completion*
@@ -49,6 +49,8 @@ Recent decisions affecting current work:
 - Plan 00-01: shadcn v4 (base-nova) used instead of deprecated New York style — CSS variables enabled as required
 - Plan 00-01: form.tsx created manually (shadcn v4 CLI omits it) — RHF integration without @radix-ui/react-slot
 - Plan 00-01: HSL values used in globals.css for theme vars (hsl() format) — matches UI-SPEC value strings
+- Plan 00-02: check-rls.sh uses supabase CLI (supabase db query) as primary method — no DATABASE_URL hardcoded, no credentials in script
+- Plan 00-02: rls_isolation.sql uses SET LOCAL to simulate JWT context switches within a single transaction — proves RLS enforcement at DB layer
 
 ### Pending Todos
 
@@ -69,5 +71,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-05-29
-Stopped at: Plan 00-01 complete — scaffold + migration. Ready for Plan 00-02.
-Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-02-PLAN.md
+Stopped at: Plan 00-02 complete — CI RLS assertion scripts and isolation tests. Ready for Plan 00-03.
+Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-03-PLAN.md
