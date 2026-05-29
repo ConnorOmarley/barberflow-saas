@@ -115,6 +115,15 @@ No new network endpoints, auth paths, or schema changes introduced. Files are re
 - `scripts/check-rls.sh` can be invoked in the CI pipeline after `supabase db push` to assert schema correctness
 - Plan 00-03 (schema push to remote Supabase + TypeScript codegen) can now proceed — these tests will validate it
 
+## Self-Check: PASSED
+
+- FOUND: tests/ci_rls_check.sql
+- FOUND: tests/rls_isolation.sql
+- FOUND: tests/rls_clients.sql
+- FOUND: scripts/check-rls.sh
+- FOUND: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-02-SUMMARY.md
+- FOUND: commit 0d6f8fa (feat(00-02): add CI RLS assertion scripts and isolation tests)
+
 ---
 *Phase: 00-infrastructure-multi-tenancy-baseline*
 *Completed: 2026-05-29*
