@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-05-29)
 ## Current Position
 
 Phase: 0 of 8 (Infrastructure & Multi-Tenancy Baseline)
-Plan: 2 of 8 in current phase (Plan 2 COMPLETE)
-Status: Executing — ready for Plan 3
-Last activity: 2026-05-29 — Plan 2 complete: CI RLS assertion scripts and isolation tests
+Plan: 4 of 8 in current phase (Plan 4 COMPLETE)
+Status: Executing — ready for Plan 5
+Last activity: 2026-05-29 — Plan 4 complete: Supabase utility files (client.ts, server.ts) + middleware.ts
 
-Progress: [██░░░░░░░░] 8%
+Progress: [███░░░░░░░] 13%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: ~56 minutes
-- Total execution time: ~1.8 hours
+- Total plans completed: 4
+- Average duration: ~40 minutes
+- Total execution time: ~2.2 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| Phase 0 | 2/8 | ~112 min | ~56 min |
+| Phase 0 | 4/8 | ~162 min | ~40 min |
 
 **Recent Trend:**
-- Last 5 plans: Plan 00-01 (110 min), Plan 00-02 (2 min)
-- Trend: —
+- Last 5 plans: Plan 00-01 (110 min), Plan 00-02 (2 min), Plan 00-03 (25 min), Plan 00-04 (25 min)
+- Trend: Stabilizing around 25 min for infrastructure plans
 
 *Updated after each plan completion*
 
@@ -51,6 +51,8 @@ Recent decisions affecting current work:
 - Plan 00-01: HSL values used in globals.css for theme vars (hsl() format) — matches UI-SPEC value strings
 - Plan 00-02: check-rls.sh uses supabase CLI (supabase db query) as primary method — no DATABASE_URL hardcoded, no credentials in script
 - Plan 00-02: rls_isolation.sql uses SET LOCAL to simulate JWT context switches within a single transaction — proves RLS enforcement at DB layer
+- Plan 00-04: parseCookieHeader value mapped with ?? '' to satisfy CookieMethodsServer type (value must be string not string | undefined)
+- Plan 00-04: const response (not let) in middleware — object is mutated via .cookies.set(), not reassigned; ESLint prefer-const enforced
 
 ### Pending Todos
 
@@ -71,5 +73,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-05-29
-Stopped at: Plan 00-02 complete — CI RLS assertion scripts and isolation tests. Ready for Plan 00-03.
-Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-03-PLAN.md
+Stopped at: Plan 00-04 complete — Supabase utility files (client.ts, server.ts) + middleware.ts with getClaims()-based route protection. Ready for Plan 00-05.
+Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-05-PLAN.md

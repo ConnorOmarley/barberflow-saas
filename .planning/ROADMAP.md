@@ -35,8 +35,8 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
 Plans:
 - [x] 00-01-PLAN.md — Next.js 15 scaffold + Supabase migration (schema, RLS, JWT hook, trigger)
 - [x] 00-02-PLAN.md — CI RLS assertion scripts (tests/ci_rls_check.sql, scripts/check-rls.sh)
-- [ ] 00-03-PLAN.md — [BLOCKING] Schema push to remote Supabase + TypeScript types codegen
-- [ ] 00-04-PLAN.md — Supabase utility files (client.ts, server.ts) + middleware.ts
+- [x] 00-03-PLAN.md — [BLOCKING] Schema push to remote Supabase + TypeScript types codegen
+- [x] 00-04-PLAN.md — Supabase utility files (client.ts, server.ts) + middleware.ts
 - [ ] 00-05-PLAN.md — Auth pages: /cadastro (signup) + /entrar (login) + /auth/confirm (PKCE callback)
 - [ ] 00-06-PLAN.md — Auth pages: /recuperar-senha + /nova-senha + /aceitar-convite
 - [ ] 00-07-PLAN.md — Dashboard shells: owner /dashboard + barber /agenda
@@ -159,7 +159,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Infrastructure & Multi-Tenancy Baseline | 2/8 | In Progress | - |
+| 0. Infrastructure & Multi-Tenancy Baseline | 4/8 | In Progress | - |
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 0/TBD | Not started | - |
 | 3. QR Check-In | 0/TBD | Not started | - |
