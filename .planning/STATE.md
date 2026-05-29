@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-05-29)
 ## Current Position
 
 Phase: 0 of 8 (Infrastructure & Multi-Tenancy Baseline)
-Plan: 0 of 8 in current phase
-Status: Ready to execute
-Last activity: 2026-05-29 — Phase 0 planned: 8 plans in 6 waves (UI-SPEC approved, research complete, verification passed)
+Plan: 1 of 8 in current phase (Plan 1 COMPLETE)
+Status: Executing — ready for Plan 2
+Last activity: 2026-05-29 — Plan 1 complete: Next.js 15 scaffold + Supabase migration with RLS
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 4%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: 0 hours
+- Total plans completed: 1
+- Average duration: ~110 minutes
+- Total execution time: ~1.8 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| Phase 0 | 1/8 | ~110 min | 110 min |
 
 **Recent Trend:**
-- Last 5 plans: —
+- Last 5 plans: Plan 00-01 (110 min)
 - Trend: —
 
 *Updated after each plan completion*
@@ -46,16 +46,19 @@ Recent decisions affecting current work:
 - Roadmap: QR tokens are HMAC-signed with issued_at + expires_at — client-side rendering, no Storage bucket
 - Roadmap: Asaas for SaaS billing (Brazilian platform, supports PIX + recorrência)
 - Roadmap: WhatsApp templates must be submitted to Meta during Phase 0/1 (2-week approval lead time)
+- Plan 00-01: shadcn v4 (base-nova) used instead of deprecated New York style — CSS variables enabled as required
+- Plan 00-01: form.tsx created manually (shadcn v4 CLI omits it) — RHF integration without @radix-ui/react-slot
+- Plan 00-01: HSL values used in globals.css for theme vars (hsl() format) — matches UI-SPEC value strings
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
 - **Phase 5 pre-condition:** WhatsApp message templates need Meta pre-approval. Submit templates during Phase 0 or Phase 1 work — do not wait until Phase 5 starts.
-- **Phase 0 open question:** Confirm `custom_access_token_hook` setup in Supabase Auth for JWT custom claims before building.
-- **Phase 0 open question:** Confirm `@supabase/ssr` is the current package (not `auth-helpers-nextjs`).
+- **RESOLVED:** `custom_access_token_hook` confirmed — implemented in migration 20260529000001_initial_schema.sql, activated in supabase/config.toml
+- **RESOLVED:** `@supabase/ssr` confirmed as current package at v0.10.3 — installed and pinned
 
 ## Deferred Items
 
@@ -66,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-29
-Stopped at: Phase 0 fully planned — 8 plans, 6 waves, verification passed. Ready to execute.
-Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-01-PLAN.md
+Stopped at: Plan 00-01 complete — scaffold + migration. Ready for Plan 00-02.
+Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-02-PLAN.md
