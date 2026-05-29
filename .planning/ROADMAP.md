@@ -29,8 +29,18 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
   3. Barbeiro invited by email can accept the invite, create their own password, and log in seeing only their own agenda — not other barbers' data or financial settings
   4. Client can identify themselves by name and WhatsApp number when booking without needing to create an account
   5. Data from Barbearia A is never returned to a user authenticated to Barbearia B — confirmed by a CI query that asserts zero tables in `public` schema have `rowsecurity = false`
-**Plans:** TBD
+**Plans:** 8 plans
 **UI hint:** yes
+
+Plans:
+- [ ] 00-01-PLAN.md — Next.js 15 scaffold + Supabase migration (schema, RLS, JWT hook, trigger)
+- [ ] 00-02-PLAN.md — CI RLS assertion scripts (tests/ci_rls_check.sql, scripts/check-rls.sh)
+- [ ] 00-03-PLAN.md — [BLOCKING] Schema push to remote Supabase + TypeScript types codegen
+- [ ] 00-04-PLAN.md — Supabase utility files (client.ts, server.ts) + middleware.ts
+- [ ] 00-05-PLAN.md — Auth pages: /cadastro (signup) + /entrar (login) + /auth/confirm (PKCE callback)
+- [ ] 00-06-PLAN.md — Auth pages: /recuperar-senha + /nova-senha + /aceitar-convite
+- [ ] 00-07-PLAN.md — Dashboard shells: owner /dashboard + barber /agenda
+- [ ] 00-08-PLAN.md — End-to-end smoke test + CI RLS verification checkpoint
 
 ---
 **Parallel track (start now, runs alongside Phase 0 and 1):** Submit all WhatsApp message templates to Meta for pre-approval. Approval takes 1–7 days and must complete before Phase 5 begins. Do not wait until Phase 5 to start this.
@@ -149,7 +159,7 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Infrastructure & Multi-Tenancy Baseline | 0/TBD | Not started | - |
+| 0. Infrastructure & Multi-Tenancy Baseline | 0/8 | Planned | - |
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 0/TBD | Not started | - |
 | 3. QR Check-In | 0/TBD | Not started | - |
