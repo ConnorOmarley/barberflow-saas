@@ -151,7 +151,7 @@
 | AUTH-02 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
 | AUTH-03 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
 | AUTH-04 | Phase 0 → Phase 1 (schema Phase 0; onboarding flow Phase 1) | Pending |
-| AUTH-05 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
+| AUTH-05 | Phase 0 (schema + /aceitar-convite) → Phase 1 (invite-sending UI) | Pending |
 | AUTH-06 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
 | AUTH-07 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
 | AUTH-08 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |

@@ -22,7 +22,7 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
 **Goal:** Every table has RLS enabled with tenant isolation enforced via JWT claims — the foundation that makes multi-tenancy impossible to bypass
 **Mode:** mvp
 **Depends on:** Nothing (first phase)
-**Requirements:** AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08
+**Requirements:** AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05 (schema + /aceitar-convite only — invite-sending UI in Phase 1), AUTH-06, AUTH-07, AUTH-08
 **Success Criteria** (what must be TRUE):
   1. Owner can create an account with email and password, receive a verification email, log in, and have their session persist across browser refreshes
   2. Owner can reset their password via an email link and regain access
@@ -51,7 +51,7 @@ Plans:
 **Goal:** A new owner can complete guided onboarding and configure their entire shop — barbers, services, schedules, and commissions — in under 5 minutes, leaving the system ready to accept bookings
 **Mode:** mvp
 **Depends on:** Phase 0
-**Requirements:** AUTH-04, BARB-01, BARB-02, BARB-03, BARB-04, BARB-05, SVC-01, SVC-02, SVC-03, BOOK-03, BOOK-05
+**Requirements:** AUTH-04, AUTH-05 (invite-sending UI), BARB-01, BARB-02, BARB-03, BARB-04, BARB-05, SVC-01, SVC-02, SVC-03, BOOK-03, BOOK-05
 **Success Criteria** (what must be TRUE):
   1. Owner completes barbershop onboarding in 4 steps or fewer after account creation and lands on a functional dashboard
   2. Owner can add a barber with name, photo, and specialties, set their working days and hours, and assign which services that barber offers
