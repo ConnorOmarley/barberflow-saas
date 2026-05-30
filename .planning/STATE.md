@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 00-06-PLAN.md
-last_updated: "2026-05-30T15:30:00.000Z"
+stopped_at: Completed 00-07-PLAN.md
+last_updated: "2026-05-30T22:59:00.000Z"
 last_activity: 2026-05-30
 progress:
   total_phases: 9
   completed_phases: 0
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
   percent: 0
 ---
 
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-05-29)
 ## Current Position
 
 Phase: 0 of 8 (Infrastructure & Multi-Tenancy Baseline)
-Plan: 6 of 8 in current phase (Plan 6 COMPLETE)
+Plan: 7 of 8 in current phase (Plan 7 COMPLETE)
 Status: Ready to execute
 Last activity: 2026-05-30
 
-Progress: [███████░░░] 75%
+Progress: [████████░░] 87%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [███████░░░] 75%
 *Updated after each plan completion*
 | Phase 00-infrastructure-multi-tenancy-baseline P5 | 15 | 2 tasks | 3 files |
 | Phase 00-infrastructure-multi-tenancy-baseline P6 | 25 | 2 tasks | 8 files |
+| Phase 00-infrastructure-multi-tenancy-baseline P7 | 15 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,7 @@ Recent decisions affecting current work:
 - Plan 00-04: const response (not let) in middleware — object is mutated via .cookies.set(), not reassigned; ESLint prefer-const enforced
 - [Phase ?]: Wrapped useSearchParams() in Suspense boundary on /entrar to fix Next.js 15 SSG prerender requirement
 - Plan 00-06: getClaims() does not exist in @supabase/ssr — used getUser() for expired token detection on nova-senha and aceitar-convite
+- Plan 00-07: signOut Server Action extracted to src/app/actions/auth.ts for reuse; barber layout redirects owner role to /dashboard (not /entrar)
 
 ### Pending Todos
 
@@ -94,6 +96,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-05-30T15:30:00.000Z
-Stopped at: Completed 00-06-PLAN.md
+Last session: 2026-05-30T22:59:00.000Z
+Stopped at: Completed 00-07-PLAN.md
 Resume file: None
