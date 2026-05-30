@@ -130,3 +130,30 @@
     @apply font-sans;
   }
 }
+
+/* Grain texture overlay — "Navalha Dourada" premium aesthetic */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Auth card entry animation + amber border/shadow */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.auth-card {
+  animation: fadeSlideUp 0.4s ease-out both;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.08), 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Display font — Cormorant Garamond for brand mark and headings */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
