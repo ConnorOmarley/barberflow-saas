@@ -20,9 +20,5 @@ export default async function BarberLayout({
     redirect('/dashboard')
   }
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      {children}
-    </div>
-  )
+  return <>{children}</>
 }

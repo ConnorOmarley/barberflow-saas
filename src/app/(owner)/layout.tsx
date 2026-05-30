@@ -19,9 +19,5 @@ export default async function OwnerLayout({
     redirect('/entrar')
   }
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      {children}
-    </div>
-  )
+  return <>{children}</>
 }

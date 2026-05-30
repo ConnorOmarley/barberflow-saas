@@ -1,14 +1,39 @@
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { Scissors } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { signOut } from '@/app/actions/auth'
+import { Check, Store, Users, Scissors } from 'lucide-react'
+import { AppShell } from '@/components/shell/app-shell'
 
 export const metadata: Metadata = {
-  title: 'Dashboard — BarberFlow',
+  title: 'Visão geral — BarberFlow',
 }
+
+const JOURNEY = [
+  {
+    icon: Check,
+    title: 'Conta criada',
+    desc: 'Seu acesso de dono está pronto.',
+    done: true,
+  },
+  {
+    icon: Store,
+    title: 'Configurar barbearia',
+    desc: 'Nome, endereço, horário de funcionamento e fuso.',
+    done: false,
+  },
+  {
+    icon: Users,
+    title: 'Adicionar barbeiros',
+    desc: 'Convide sua equipe e defina comissões.',
+    done: false,
+  },
+  {
+    icon: Scissors,
+    title: 'Cadastrar serviços',
+    desc: 'Defina cortes, durações e preços.',
+    done: false,
+  },
+]
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -18,56 +43,73 @@ export default async function DashboardPage() {
     redirect('/entrar')
   }
 
-  const email = data.claims.email as string | undefined
+  const email = (data.claims.email as string | undefined) ?? ''
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      {/* Header */}
-      <header className="h-14 bg-card border-b border-border flex items-center justify-between px-4 shrink-0">
-        {/* Brand mark */}
-        <div className="flex items-center gap-2">
-          <Scissors className="h-4 w-4 text-amber-600" strokeWidth={1.5} />
-          <span className="font-display text-sm font-semibold tracking-wide text-foreground">
-            BarberFlow
-          </span>
+    <AppShell role="owner" email={email} section="Visão geral">
+      <div className="mx-auto max-w-2xl">
+        {/* Editorial intro */}
+        <div className="mb-8">
+          <div className="mb-4 h-px w-8 bg-amber-600" />
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-foreground">
+            Vamos preparar sua barbearia
+          </h2>
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+            Quatro passos separam você de receber o primeiro agendamento. O
+            primeiro já está feito.
+          </p>
         </div>
 
-        {/* Right: role badge + email + signout */}
-        <div className="flex items-center gap-3">
-          <Badge className="bg-amber-600 text-black text-xs font-semibold hover:bg-amber-600">
-            Dono
-          </Badge>
-          {email && (
-            <span className="text-sm text-muted-foreground hidden sm:block">
-              {email}
-            </span>
-          )}
-          <form action={signOut}>
-            <Button type="submit" variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Sair
-            </Button>
-          </form>
-        </div>
-      </header>
+        {/* Journey */}
+        <ol className="overflow-hidden rounded-xl border border-[var(--shell-edge)] bg-card">
+          {JOURNEY.map((step, i) => (
+            <li
+              key={step.title}
+              className="flex items-start gap-4 border-b border-[var(--shell-edge)] p-5 last:border-b-0"
+            >
+              {/* Step marker — honed edge when done */}
+              <div
+                className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${
+                  step.done ? 'step-done' : 'step-soon'
+                }`}
+              >
+                <step.icon className="h-4 w-4" strokeWidth={1.75} />
+              </div>
 
-      {/* Main content area — empty state */}
-      <main className="flex-1 bg-background flex flex-col items-center justify-center gap-4 px-4 text-center">
-        {/* Amber hairline accent */}
-        <div className="w-8 h-px bg-amber-600 mb-2" />
-        <h1 className="font-display text-2xl font-semibold text-foreground tracking-tight">
-          Sua barbearia está quase pronta
-        </h1>
-        <p className="text-sm text-muted-foreground max-w-xs">
-          Complete o cadastro da sua barbearia para começar a aceitar agendamentos.
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[0.6875rem] tabular-nums text-muted-foreground/60">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3
+                    className={`text-sm font-medium ${
+                      step.done ? 'text-foreground' : 'text-foreground/80'
+                    }`}
+                  >
+                    {step.title}
+                  </h3>
+                  {step.done ? (
+                    <span className="text-[0.625rem] uppercase tracking-wide text-amber-500">
+                      concluído
+                    </span>
+                  ) : (
+                    <span className="text-[0.625rem] uppercase tracking-wide text-muted-foreground/60">
+                      em breve
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {step.desc}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <p className="mt-4 text-center text-xs text-muted-foreground/70">
+          A configuração da barbearia abre na próxima atualização.
         </p>
-        <Button
-          disabled
-          title="Em breve"
-          className="mt-2 bg-amber-600 text-black font-semibold opacity-50 cursor-not-allowed h-11 px-6"
-        >
-          Configurar barbearia
-        </Button>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   )
 }
