@@ -7,9 +7,9 @@
 
 ### Authentication & Multi-Tenancy
 
-- [ ] **AUTH-01**: Dono pode criar conta com email e senha e recebe email de verificação
-- [ ] **AUTH-02**: Dono pode fazer login e a sessão persiste entre atualizações do navegador
-- [ ] **AUTH-03**: Dono pode redefinir senha via link de email
+- [x] **AUTH-01**: Dono pode criar conta com email e senha e recebe email de verificação
+- [x] **AUTH-02**: Dono pode fazer login e a sessão persiste entre atualizações do navegador
+- [x] **AUTH-03**: Dono pode redefinir senha via link de email
 - [ ] **AUTH-04**: Dono completa onboarding da barbearia em até 4 passos após cadastro
 - [ ] **AUTH-05**: Dono convida barbeiro por email; barbeiro cria sua própria senha ao aceitar
 - [ ] **AUTH-06**: Barbeiro pode fazer login com suas credenciais e ver apenas sua própria agenda
@@ -147,9 +147,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
-| AUTH-02 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
-| AUTH-03 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
+| AUTH-01 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
+| AUTH-02 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
+| AUTH-03 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
 | AUTH-04 | Phase 0 → Phase 1 (schema Phase 0; onboarding flow Phase 1) | Pending |
 | AUTH-05 | Phase 0 (schema + /aceitar-convite) → Phase 1 (invite-sending UI) | Pending |
 | AUTH-06 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |

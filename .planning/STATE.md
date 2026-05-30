@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 00-05-PLAN.md
+last_updated: "2026-05-30T14:47:48.660Z"
+last_activity: 2026-05-30
+progress:
+  total_phases: 9
+  completed_phases: 0
+  total_plans: 8
+  completed_plans: 5
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
@@ -10,15 +26,16 @@ See: .planning/PROJECT.md (updated 2026-05-29)
 ## Current Position
 
 Phase: 0 of 8 (Infrastructure & Multi-Tenancy Baseline)
-Plan: 4 of 8 in current phase (Plan 4 COMPLETE)
-Status: Executing — ready for Plan 5
-Last activity: 2026-05-29 — Plan 4 complete: Supabase utility files (client.ts, server.ts) + middleware.ts
+Plan: 5 of 8 in current phase (Plan 4 COMPLETE)
+Status: Ready to execute
+Last activity: 2026-05-30
 
-Progress: [███░░░░░░░] 13%
+Progress: [██████░░░░] 63%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 4
 - Average duration: ~40 minutes
 - Total execution time: ~2.2 hours
@@ -30,10 +47,12 @@ Progress: [███░░░░░░░] 13%
 | Phase 0 | 4/8 | ~162 min | ~40 min |
 
 **Recent Trend:**
+
 - Last 5 plans: Plan 00-01 (110 min), Plan 00-02 (2 min), Plan 00-03 (25 min), Plan 00-04 (25 min)
 - Trend: Stabilizing around 25 min for infrastructure plans
 
 *Updated after each plan completion*
+| Phase 00-infrastructure-multi-tenancy-baseline P5 | 15 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -53,6 +72,7 @@ Recent decisions affecting current work:
 - Plan 00-02: rls_isolation.sql uses SET LOCAL to simulate JWT context switches within a single transaction — proves RLS enforcement at DB layer
 - Plan 00-04: parseCookieHeader value mapped with ?? '' to satisfy CookieMethodsServer type (value must be string not string | undefined)
 - Plan 00-04: const response (not let) in middleware — object is mutated via .cookies.set(), not reassigned; ESLint prefer-const enforced
+- [Phase ?]: Wrapped useSearchParams() in Suspense boundary on /entrar to fix Next.js 15 SSG prerender requirement
 
 ### Pending Todos
 
@@ -72,6 +92,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-05-29
-Stopped at: Plan 00-04 complete — Supabase utility files (client.ts, server.ts) + middleware.ts with getClaims()-based route protection. Ready for Plan 00-05.
-Resume file: .planning/phases/00-infrastructure-multi-tenancy-baseline/00-05-PLAN.md
+Last session: 2026-05-30T14:47:48.649Z
+Stopped at: Completed 00-05-PLAN.md
+Resume file: None

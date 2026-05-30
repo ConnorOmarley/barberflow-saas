@@ -29,7 +29,7 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
   3. Barbeiro invited by email can accept the invite, create their own password, and log in seeing only their own agenda — not other barbers' data or financial settings
   4. Client can identify themselves by name and WhatsApp number when booking without needing to create an account
   5. Data from Barbearia A is never returned to a user authenticated to Barbearia B — confirmed by a CI query that asserts zero tables in `public` schema have `rowsecurity = false`
-**Plans:** 8 plans
+**Plans:** 5/8 plans executed
 **UI hint:** yes
 
 Plans:
@@ -37,7 +37,7 @@ Plans:
 - [x] 00-02-PLAN.md — CI RLS assertion scripts (tests/ci_rls_check.sql, scripts/check-rls.sh)
 - [x] 00-03-PLAN.md — [BLOCKING] Schema push to remote Supabase + TypeScript types codegen
 - [x] 00-04-PLAN.md — Supabase utility files (client.ts, server.ts) + middleware.ts
-- [ ] 00-05-PLAN.md — Auth pages: /cadastro (signup) + /entrar (login) + /auth/confirm (PKCE callback)
+- [x] 00-05-PLAN.md — Auth pages: /cadastro (signup) + /entrar (login) + /auth/confirm (PKCE callback)
 - [ ] 00-06-PLAN.md — Auth pages: /recuperar-senha + /nova-senha + /aceitar-convite
 - [ ] 00-07-PLAN.md — Dashboard shells: owner /dashboard + barber /agenda
 - [ ] 00-08-PLAN.md — End-to-end smoke test + CI RLS verification checkpoint
@@ -159,7 +159,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Infrastructure & Multi-Tenancy Baseline | 4/8 | In Progress | - |
+| 0. Infrastructure & Multi-Tenancy Baseline | 5/8 | In Progress|  |
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 0/TBD | Not started | - |
 | 3. QR Check-In | 0/TBD | Not started | - |
