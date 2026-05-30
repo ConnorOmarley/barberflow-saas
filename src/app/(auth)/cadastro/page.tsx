@@ -10,7 +10,12 @@ import { Loader2, Scissors, Eye, EyeOff } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
   Form,
@@ -29,7 +34,10 @@ const cadastroSchema = z.object({
 type CadastroFormValues = z.infer<typeof cadastroSchema>
 
 function mapSupabaseError(message: string): string {
-  if (message.includes('User already registered') || message.includes('already registered')) {
+  if (
+    message.includes('User already registered') ||
+    message.includes('already registered')
+  ) {
     return 'Este email já está cadastrado. Tente entrar ou recuperar sua senha.'
   }
   if (message.includes('Email not confirmed')) {
@@ -58,7 +66,8 @@ export default function CadastroPage() {
       email: values.email,
       password: values.password,
       options: {
-        emailRedirectTo: window.location.origin + '/auth/confirm?type=email&next=/dashboard',
+        emailRedirectTo:
+          window.location.origin + '/auth/confirm?type=email&next=/dashboard',
       },
     })
 
@@ -72,19 +81,32 @@ export default function CadastroPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
-      <div className="mb-8 flex items-center gap-2">
-        <Scissors className="h-7 w-7 text-primary" />
-        <span className="text-2xl font-semibold text-foreground">BarberFlow</span>
+      {/* Brand mark */}
+      <div className="flex items-center gap-2 mb-8">
+        <Scissors className="h-6 w-6 text-amber-600" strokeWidth={1.5} />
+        <span className="font-display text-xl font-semibold tracking-wide text-white">
+          BarberFlow
+        </span>
       </div>
 
-      <Card className="w-full max-w-[400px] rounded-xl border bg-card">
+      <Card className="auth-card w-full max-w-[400px] rounded-xl bg-card border-0">
         <CardHeader className="space-y-1 pb-4">
-          <CardTitle className="text-xl font-semibold">Crie sua conta</CardTitle>
+          <h1 className="font-display text-2xl font-semibold text-white tracking-tight">
+            Crie sua conta
+          </h1>
           <CardDescription className="text-sm text-muted-foreground">
             Comece a gerenciar sua barbearia hoje
           </CardDescription>
+          {/* Amber hairline divider */}
+          <div className="w-8 h-px bg-amber-600 mt-2" />
         </CardHeader>
         <CardContent>
+          {errorMessage && (
+            <Alert className="mb-4 border-red-900/50 bg-red-950/30 text-red-400">
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
@@ -124,7 +146,9 @@ export default function CadastroPage() {
                         <button
                           type="button"
                           onClick={() => setShowPassword((prev) => !prev)}
-                          aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                          aria-label={
+                            showPassword ? 'Ocultar senha' : 'Mostrar senha'
+                          }
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none"
                           tabIndex={-1}
                         >
@@ -141,18 +165,14 @@ export default function CadastroPage() {
                 )}
               />
 
-              {errorMessage && (
-                <Alert variant="destructive">
-                  <AlertDescription>{errorMessage}</AlertDescription>
-                </Alert>
-              )}
-
               <Button
                 type="submit"
-                className="w-full min-h-[44px] h-11 bg-primary text-primary-foreground hover:bg-primary/90"
+                className="w-full h-11 bg-amber-600 hover:bg-amber-500 text-black font-semibold transition-colors"
                 disabled={form.formState.isSubmitting}
                 aria-busy={form.formState.isSubmitting}
-                aria-label={form.formState.isSubmitting ? 'Carregando...' : undefined}
+                aria-label={
+                  form.formState.isSubmitting ? 'Carregando...' : undefined
+                }
               >
                 {form.formState.isSubmitting ? (
                   <>
@@ -168,7 +188,10 @@ export default function CadastroPage() {
 
           <p className="mt-4 text-center text-sm text-muted-foreground">
             Já tem conta?{' '}
-            <Link href="/entrar" className="text-primary hover:underline">
+            <Link
+              href="/entrar"
+              className="text-amber-500 hover:text-amber-400 underline-offset-4 hover:underline"
+            >
               Entrar na conta
             </Link>
           </p>
