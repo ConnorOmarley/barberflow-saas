@@ -39,9 +39,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/entrar', request.url))
   }
 
-  // Rule B — Authenticated user accessing auth pages → redirect to their dashboard
+  // Rule B — Authenticated user accessing auth pages → redirect to their dashboard.
+  // Only redirect when a role is present. An authenticated user WITHOUT a role
+  // (profile/hook not set yet) must be allowed to stay on /entrar — otherwise the
+  // layout bounces them back here and we get an infinite 307 redirect loop.
   const isAuthPage = pathname === '/entrar' || pathname === '/cadastro'
-  if (isAuthPage && claims && !error) {
+  if (isAuthPage && claims && !error && role) {
     const redirectTo = role === 'barber' ? '/agenda' : '/dashboard'
     return NextResponse.redirect(new URL(redirectTo, request.url))
   }
