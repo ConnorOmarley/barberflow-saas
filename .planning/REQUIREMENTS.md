@@ -10,11 +10,11 @@
 - [x] **AUTH-01**: Dono pode criar conta com email e senha e recebe email de verificação
 - [x] **AUTH-02**: Dono pode fazer login e a sessão persiste entre atualizações do navegador
 - [x] **AUTH-03**: Dono pode redefinir senha via link de email
-- [ ] **AUTH-04**: Dono completa onboarding da barbearia em até 4 passos após cadastro
-- [ ] **AUTH-05**: Dono convida barbeiro por email; barbeiro cria sua própria senha ao aceitar
-- [ ] **AUTH-06**: Barbeiro pode fazer login com suas credenciais e ver apenas sua própria agenda
-- [ ] **AUTH-07**: Cliente pode se identificar pelo nome e WhatsApp ao agendar (sem conta obrigatória no v1)
-- [ ] **AUTH-08**: Cada barbearia tem seu espaço isolado — dados de uma barbearia nunca são visíveis a outra
+- [~] **AUTH-04**: Dono completa onboarding da barbearia em até 4 passos após cadastro (schema na Fase 0; fluxo na Fase 1)
+- [~] **AUTH-05**: Dono convida barbeiro por email; barbeiro cria sua própria senha ao aceitar (schema + /aceitar-convite na Fase 0; UI de envio na Fase 1)
+- [x] **AUTH-06**: Barbeiro pode fazer login com suas credenciais e ver apenas sua própria agenda
+- [x] **AUTH-07**: Cliente pode se identificar pelo nome e WhatsApp ao agendar (sem conta obrigatória no v1)
+- [x] **AUTH-08**: Cada barbearia tem seu espaço isolado — dados de uma barbearia nunca são visíveis a outra
 
 ### Booking & Scheduling
 
@@ -152,9 +152,9 @@
 | AUTH-03 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
 | AUTH-04 | Phase 0 → Phase 1 (schema Phase 0; onboarding flow Phase 1) | Pending |
 | AUTH-05 | Phase 0 (schema + /aceitar-convite) → Phase 1 (invite-sending UI) | Pending |
-| AUTH-06 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
-| AUTH-07 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
-| AUTH-08 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Pending |
+| AUTH-06 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
+| AUTH-07 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
+| AUTH-08 | Phase 0 — Infrastructure & Multi-Tenancy Baseline | Complete |
 | BOOK-01 | Phase 2 — Client Booking Portal | Pending |
 | BOOK-02 | Phase 2 — Client Booking Portal | Pending |
 | BOOK-03 | Phase 1 — Owner Onboarding + Barber & Service Setup | Pending |

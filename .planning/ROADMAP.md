@@ -6,7 +6,7 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
 
 ## Phases
 
-- [ ] **Phase 0: Infrastructure & Multi-Tenancy Baseline** - Supabase schema with RLS on every table, JWT with role + tenant claims, Next.js route groups, CI guard
+- [x] **Phase 0: Infrastructure & Multi-Tenancy Baseline** - Supabase schema with RLS on every table, JWT with role + tenant claims, Next.js route groups, CI guard ✓ 2026-05-31
 - [ ] **Phase 1: Owner Onboarding + Barber & Service Setup** - Guided onboarding, barber profiles, service catalogue, commission config, manual booking by staff
 - [ ] **Phase 2: Client Booking Portal** - Public booking flow (service → barber → slot), real-time slot blocking, status lifecycle
 - [ ] **Phase 3: QR Check-In** - Signed QR per appointment, scan-to-CHECKED_IN, revocation on cancel
@@ -40,7 +40,7 @@ Plans:
 - [x] 00-05-PLAN.md — Auth pages: /cadastro (signup) + /entrar (login) + /auth/confirm (PKCE callback)
 - [x] 00-06-PLAN.md — Auth pages: /recuperar-senha + /nova-senha + /aceitar-convite
 - [x] 00-07-PLAN.md — Dashboard shells: owner /dashboard + barber /agenda
-- [ ] 00-08-PLAN.md — End-to-end smoke test + CI RLS verification checkpoint
+- [x] 00-08-PLAN.md — End-to-end smoke test + CI RLS verification checkpoint
 
 ---
 **Parallel track (start now, runs alongside Phase 0 and 1):** Submit all WhatsApp message templates to Meta for pre-approval. Approval takes 1–7 days and must complete before Phase 5 begins. Do not wait until Phase 5 to start this.
@@ -159,7 +159,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Infrastructure & Multi-Tenancy Baseline | 7/8 | In Progress|  |
+| 0. Infrastructure & Multi-Tenancy Baseline | 8/8 | ✅ Complete | 2026-05-31 |
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 0/TBD | Not started | - |
 | 3. QR Check-In | 0/TBD | Not started | - |
