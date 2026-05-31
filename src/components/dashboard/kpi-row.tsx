@@ -31,15 +31,15 @@ export function KpiRow() {
               <Icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={2.25} />
             </div>
 
-            <p className="mt-4 text-[0.8125rem] font-medium text-[var(--text-secondary)]">
+            <p className="mt-4 text-[0.75rem] font-medium text-[var(--text-secondary)]">
               {kpi.label}
             </p>
-            <p className="mt-1.5 text-[1.875rem] font-bold leading-none tracking-[-0.02em] text-foreground tabular-nums">
+            <p className="mt-1.5 text-[2.125rem] font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground tabular-nums">
               {kpi.value}
             </p>
-            <div className="mt-3.5 flex items-center gap-1.5 text-xs">
+            <div className="mt-3 flex items-center gap-1.5 text-[0.6875rem]">
               <span className="flex items-center gap-0.5 rounded-md bg-emerald-500/10 px-1.5 py-0.5 font-semibold text-emerald-400 tabular-nums">
-                <TrendingUp className="h-3 w-3" strokeWidth={2.5} />
+                <TrendingUp className="h-2.5 w-2.5" strokeWidth={3} />
                 {kpi.delta}%
               </span>
               <span className="text-[var(--text-tertiary)]">vs ontem</span>

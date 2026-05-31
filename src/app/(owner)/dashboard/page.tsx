@@ -62,31 +62,41 @@ export default async function DashboardPage() {
     <DashboardShell displayName={displayName} email={email}>
       <div className="px-5 py-6 lg:px-8 lg:py-7">
         {/* ── Top header ── */}
-        <header className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <header className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <h1 className="flex items-center gap-2 text-[1.75rem] font-bold tracking-[-0.02em] text-foreground">
+            <h1 className="flex items-center gap-2 text-[1.75rem] font-bold leading-none tracking-[-0.03em] text-foreground">
               {greetingFor()}, {firstName}!{" "}
-              <span className="text-[1.5rem]" aria-hidden>
+              <span className="text-[1.375rem]" aria-hidden>
                 👋
               </span>
             </h1>
-            <p className="mt-1 text-[0.875rem] text-[var(--text-secondary)]">
+            <p className="mt-2 text-[0.875rem] leading-none text-[var(--text-secondary)]">
               Aqui está o que está acontecendo na sua barbearia hoje.
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5">
-            <button type="button" className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:bg-white/[0.06]">
-              <CalendarDays className="h-4 w-4 text-[var(--text-secondary)]" />
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="flex h-9 items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 text-[0.8125rem] font-medium text-[var(--text-secondary)] transition-colors hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-foreground"
+            >
+              <CalendarDays className="h-4 w-4 text-[var(--text-tertiary)]" />
               <span className="capitalize">{dateLabel}</span>
             </button>
-            <button type="button" className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:bg-white/[0.06]">
-              <RefreshCw className="h-4 w-4 text-[var(--text-secondary)]" />
+            <button
+              type="button"
+              className="flex h-9 items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 text-[0.8125rem] font-medium text-foreground transition-colors hover:border-white/[0.12] hover:bg-white/[0.05]"
+            >
+              <RefreshCw className="h-[15px] w-[15px] text-[var(--text-secondary)]" />
               Atualizar dados
             </button>
-            <button type="button" aria-label="Notificações" className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-foreground transition-colors hover:bg-white/[0.06]">
-              <Bell className="h-[18px] w-[18px]" />
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4a574] text-[0.625rem] font-bold text-[#0b0f17]">
+            <button
+              type="button"
+              aria-label="Notificações"
+              className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.02] text-[var(--text-secondary)] transition-colors hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-foreground"
+            >
+              <Bell className="h-[17px] w-[17px]" />
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4a574] text-[0.625rem] font-bold text-[#0b0f17] ring-2 ring-[#0b0f17]">
                 3
               </span>
             </button>
