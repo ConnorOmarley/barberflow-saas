@@ -99,9 +99,9 @@ Inherited from Phase 0. Base: 16px = 1rem. Font weights: **400 (regular) and 600
 | Label | 14px (0.875rem) | 400 (regular) | 1.4 | Form field labels, list column headers |
 | Subheading | 15px (0.9375rem) | 600 (semibold) | 1.3 | Panel/section titles (matches existing `PanelHeader`), step titles in wizard |
 | Heading | 20px (1.25rem) | 600 (semibold) | 1.2 | Wizard step heading, drawer title |
-| KPI value | 34px (2.125rem) | 800 (extrabold) | 1.05 | KPI numbers only — existing `KpiRow` pattern, no new instances in Phase 1 |
+| KPI value | 34px (2.125rem) | 600 (semibold) | 1.05 | KPI numbers only — existing `KpiRow` pattern, no new instances in Phase 1 |
 
-Note: The 34px/extrabold slot is carried from Phase 0 KPI pattern. Phase 1 does not add new KPI cards but must not break the existing row.
+Note: The 34px slot is carried from Phase 0 KPI pattern. The large size (34px) provides sufficient visual hierarchy for KPI numbers without requiring a third weight. Phase 1 does not add new KPI cards but must not break the existing row.
 
 Tabular numerals (`tabular-nums`) on: time slots, price values, duration values.
 
@@ -289,7 +289,7 @@ DrawerBody (ScrollArea, flex-1, overflow-y-auto, px-6 py-5, gap-6):
 DrawerFooter (sticky, border-t border-white/[0.06], px-6 py-4):
   flex justify-between
   "Desativar barbeiro" (if editing): variant=ghost text-destructive, only shown when barber is_active=true
-  Right side: "Cancelar" ghost + "Salvar barbeiro" default (gold)
+  Right side: "Fechar" ghost + "Salvar barbeiro" default (gold)
 ```
 
 **Empty state** for /dashboard/equipe (no barbers yet):
@@ -344,7 +344,7 @@ DrawerBody (px-6 py-5, gap-6):
       Row: Checkbox | Avatar (24px) | Barber name
     Note: commission is set from the barber edit drawer — this section is assignment-only (no commission fields here)
 
-DrawerFooter: "Cancelar" ghost + "Salvar serviço" gold
+DrawerFooter: "Fechar" ghost + "Salvar serviço" gold
   + "Desativar serviço" ghost destructive (when editing active service)
 ```
 
@@ -474,7 +474,7 @@ Sheet (side=right, w=[480px]):
     Section "Observações" (optional, Separator above):
       Textarea, 3 rows, placeholder "Observações internas (não visíveis ao cliente)"
 
-  DrawerFooter: "Cancelar" ghost + "Confirmar agendamento" gold (h-11)
+  DrawerFooter: "Fechar" ghost + "Confirmar agendamento" gold (h-11)
     Loading state: spinner + "Salvando..." text, button disabled
     
   Success: drawer closes, toast-like notification (shadcn `sonner` or Alert banner in main content):
@@ -608,6 +608,7 @@ Phase 1 creates appointments with status = `CONFIRMED` directly.
 | Add button | `Adicionar barbeiro` |
 | Drawer title (create) | `Adicionar barbeiro` |
 | Drawer title (edit) | `Editar barbeiro` |
+| Drawer dismiss button | `Fechar` |
 | Save button | `Salvar barbeiro` |
 | Deactivate button | `Desativar barbeiro` |
 | Invite button | `Convidar por email` |
@@ -631,6 +632,7 @@ Phase 1 creates appointments with status = `CONFIRMED` directly.
 | Add button | `Novo serviço` |
 | Drawer title (create) | `Novo serviço` |
 | Drawer title (edit) | `Editar serviço` |
+| Drawer dismiss button | `Fechar` |
 | Save button | `Salvar serviço` |
 | Deactivate button | `Desativar serviço` |
 | Empty state heading | `Nenhum serviço cadastrado` |
@@ -664,6 +666,7 @@ Phase 1 creates appointments with status = `CONFIRMED` directly.
 | Element | Copy |
 |---------|------|
 | Drawer title | `Novo Agendamento` |
+| Drawer dismiss button | `Fechar` |
 | Client label | `Cliente` |
 | Client placeholder | `Buscar cliente por nome ou WhatsApp...` |
 | Create client option | `Criar novo cliente` |
