@@ -5,6 +5,7 @@ import {
   Scissors,
   MessageCircle,
   BarChart3,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 import { Panel } from "./primitives";
@@ -21,7 +22,8 @@ const ACTIONS: { label: string; Icon: LucideIcon; fg: string }[] = [
 export function QuickActions() {
   return (
     <Panel className="p-5">
-      <h2 className="mb-4 text-[0.9375rem] font-semibold text-foreground">
+      <h2 className="mb-4 flex items-center gap-2 text-[0.9375rem] font-semibold text-foreground">
+        <Zap className="h-4 w-4 text-[#d4a574]" strokeWidth={2} />
         Ações Rápidas
       </h2>
       <div className="grid grid-cols-3 gap-3">

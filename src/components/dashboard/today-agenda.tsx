@@ -52,7 +52,11 @@ export function TodayAgenda() {
 
             <StatusBadge status={a.status} />
 
-            <button className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-tertiary)] opacity-0 transition-all hover:bg-white/5 hover:text-foreground group-hover:opacity-100">
+            <button
+              type="button"
+              aria-label={`Opções de ${a.client}`}
+              className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-tertiary)] opacity-0 transition-all hover:bg-white/5 hover:text-foreground group-hover:opacity-100"
+            >
               <MoreHorizontal className="h-4 w-4" />
             </button>
           </li>

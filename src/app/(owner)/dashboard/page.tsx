@@ -64,13 +64,13 @@ export default async function DashboardPage() {
         {/* ── Top header ── */}
         <header className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h1 className="flex items-center gap-2 text-[1.625rem] font-bold tracking-tight text-foreground">
+            <h1 className="flex items-center gap-2 text-[1.75rem] font-bold tracking-[-0.02em] text-foreground">
               {greetingFor()}, {firstName}!{" "}
-              <span className="text-2xl" aria-hidden>
+              <span className="text-[1.5rem]" aria-hidden>
                 👋
               </span>
             </h1>
-            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+            <p className="mt-1 text-[0.875rem] text-[var(--text-secondary)]">
               Aqui está o que está acontecendo na sua barbearia hoje.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
               <RefreshCw className="h-4 w-4 text-[var(--text-secondary)]" />
               Atualizar dados
             </button>
-            <button type="button" className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-foreground transition-colors hover:bg-white/[0.06]">
+            <button type="button" aria-label="Notificações" className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-foreground transition-colors hover:bg-white/[0.06]">
               <Bell className="h-[18px] w-[18px]" />
               <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4a574] text-[0.625rem] font-bold text-[#0b0f17]">
                 3

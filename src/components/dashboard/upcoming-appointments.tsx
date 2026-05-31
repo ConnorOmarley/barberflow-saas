@@ -1,11 +1,14 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import { upcoming } from "@/lib/dashboard/sample-data";
 import { Avatar, StatusDot, Panel, PanelHeader } from "./primitives";
 
 export function UpcomingAppointments() {
   return (
     <Panel className="flex h-full flex-col">
-      <PanelHeader title="Próximos Agendamentos" />
+      <PanelHeader
+        title="Próximos Agendamentos"
+        icon={<Clock className="h-4 w-4" strokeWidth={2} />}
+      />
 
       <ul className="flex-1 px-3">
         {upcoming.map((u) => (

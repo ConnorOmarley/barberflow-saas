@@ -1,4 +1,4 @@
-import { Crown, Scissors, ArrowRight } from "lucide-react";
+import { Crown, Scissors, ArrowRight, Award } from "lucide-react";
 import { loyaltyHighlight } from "@/lib/dashboard/sample-data";
 import { Avatar, Panel, PanelHeader } from "./primitives";
 
@@ -8,7 +8,10 @@ export function LoyaltyHighlight() {
 
   return (
     <Panel className="flex h-full flex-col">
-      <PanelHeader title="Fidelidade em Destaque" />
+      <PanelHeader
+        title="Fidelidade em Destaque"
+        icon={<Award className="h-4 w-4" strokeWidth={2} />}
+      />
 
       <div className="flex flex-1 flex-col px-5 pb-5">
         {/* Client + tier */}

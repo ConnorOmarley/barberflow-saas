@@ -48,7 +48,7 @@ export function RevenueChart() {
             <span className="text-[var(--text-tertiary)]">vs semana passada</span>
           </div>
         </div>
-        <button className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:text-foreground">
+        <button type="button" className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:text-foreground">
           Esta semana
           <ChevronDown className="h-3.5 w-3.5" />
         </button>
@@ -105,11 +105,26 @@ export function RevenueChart() {
             points={line}
             fill="none"
             stroke="#d4a574"
-            strokeWidth="2.5"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             filter="url(#revGlow)"
           />
+
+          {/* data-point dots */}
+          {points.map((v, i) =>
+            i === peakIndex ? null : (
+              <circle
+                key={i}
+                cx={x(i, n)}
+                cy={y(v)}
+                r="3"
+                fill="#0f131c"
+                stroke="#d4a574"
+                strokeWidth="2"
+              />
+            ),
+          )}
 
           {/* peak marker + tooltip */}
           <circle cx={x(peakIndex, n)} cy={y(points[peakIndex])} r="4.5" fill="#d4a574" />

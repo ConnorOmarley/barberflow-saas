@@ -1,4 +1,4 @@
-import { ArrowRight, MoreVertical } from "lucide-react";
+import { ArrowRight, MoreVertical, Users } from "lucide-react";
 import { recentClients, brl } from "@/lib/dashboard/sample-data";
 import { Avatar, Panel, PanelHeader } from "./primitives";
 
@@ -7,6 +7,7 @@ export function RecentClients() {
     <Panel className="flex h-full flex-col">
       <PanelHeader
         title="Clientes Recentes"
+        icon={<Users className="h-4 w-4" strokeWidth={2} />}
         action={
           <button className="flex items-center gap-1 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:text-[#d4a574]">
             Ver todos
@@ -34,7 +35,11 @@ export function RecentClients() {
                 {brl(c.total)}
               </p>
             </div>
-            <button className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-tertiary)] opacity-0 transition-all hover:bg-white/5 hover:text-foreground group-hover:opacity-100">
+            <button
+              type="button"
+              aria-label={`Opções de ${c.name}`}
+              className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-tertiary)] opacity-0 transition-all hover:bg-white/5 hover:text-foreground group-hover:opacity-100"
+            >
               <MoreVertical className="h-4 w-4" />
             </button>
           </li>
