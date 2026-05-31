@@ -79,14 +79,18 @@ export function DashboardShell({
               item.href && item.active ? (
                 <li key={item.label}>
                   <Link href={item.href} className="side-nav" data-active="true">
-                    <item.icon className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
+                    <span className="nav-ico">
+                      <item.icon className="h-[17px] w-[17px]" strokeWidth={2} />
+                    </span>
                     {item.label}
                   </Link>
                 </li>
               ) : (
                 <li key={item.label}>
                   <button className="side-nav w-full" type="button">
-                    <item.icon className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
+                    <span className="nav-ico">
+                      <item.icon className="h-[17px] w-[17px]" strokeWidth={2} />
+                    </span>
                     {item.label}
                   </button>
                 </li>

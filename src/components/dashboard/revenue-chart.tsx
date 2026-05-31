@@ -33,9 +33,11 @@ export function RevenueChart() {
     <Panel className="flex h-full flex-col">
       <div className="flex items-start justify-between px-5 pt-5">
         <div>
-          <div className="flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-[#d4a574]" strokeWidth={2} />
-            <h2 className="text-[0.9375rem] font-semibold text-foreground">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#d4a574]/10 text-[#d4a574] ring-1 ring-inset ring-[#d4a574]/15">
+              <BarChart3 className="h-4 w-4" strokeWidth={2} />
+            </span>
+            <h2 className="text-[0.9375rem] font-semibold tracking-[-0.01em] text-foreground">
               Receita da Semana
             </h2>
           </div>

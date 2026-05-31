@@ -1,29 +1,36 @@
-import { DollarSign, Scissors, UserPlus, Percent, TrendingUp } from "lucide-react";
+import { DollarSign, Scissors, UserPlus, Percent, TrendingUp, type LucideIcon } from "lucide-react";
 import { kpis } from "@/lib/dashboard/sample-data";
 
-const ICONS = {
-  revenue: { Icon: DollarSign, fg: "#34d399", bg: "rgba(16,185,129,0.12)" },
-  cut: { Icon: Scissors, fg: "#a78bfa", bg: "rgba(139,92,246,0.14)" },
-  clients: { Icon: UserPlus, fg: "#60a5fa", bg: "rgba(59,130,246,0.14)" },
-  commission: { Icon: Percent, fg: "#d4a574", bg: "rgba(212,165,116,0.14)" },
-} as const;
+const ICONS: Record<string, { Icon: LucideIcon; c: string }> = {
+  revenue: { Icon: DollarSign, c: "#34d399" },
+  cut: { Icon: Scissors, c: "#a78bfa" },
+  clients: { Icon: UserPlus, c: "#60a5fa" },
+  commission: { Icon: Percent, c: "#d4a574" },
+};
 
 export function KpiRow() {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {kpis.map((kpi, i) => {
-        const { Icon, fg, bg } = ICONS[kpi.icon];
+        const { Icon, c } = ICONS[kpi.icon];
         return (
           <div
             key={kpi.key}
-            className="surface-card rise-in p-5"
+            className="surface-card rise-in p-5 transition-colors hover:border-white/[0.12]"
             style={{ animationDelay: `${i * 60}ms` }}
           >
-            <div className="flex items-start justify-between">
-              <div className="kpi-icon" style={{ backgroundColor: bg, color: fg }}>
-                <Icon className="h-5 w-5" strokeWidth={2} />
-              </div>
+            <div
+              className="kpi-icon"
+              style={{
+                color: c,
+                backgroundImage: `linear-gradient(135deg, ${c}26, ${c}0d)`,
+                border: `1px solid ${c}2e`,
+                boxShadow: `inset 0 1px 0 0 ${c}30, 0 6px 16px -6px ${c}66`,
+              }}
+            >
+              <Icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={2.25} />
             </div>
+
             <p className="mt-4 text-[0.8125rem] font-medium text-[var(--text-secondary)]">
               {kpi.label}
             </p>

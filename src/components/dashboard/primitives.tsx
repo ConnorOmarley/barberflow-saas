@@ -86,9 +86,15 @@ export function PanelHeader({
 }) {
   return (
     <div className="flex items-center justify-between px-5 pt-5 pb-4">
-      <div className="flex items-center gap-2">
-        {icon && <span className="text-[#d4a574]">{icon}</span>}
-        <h2 className="text-[0.9375rem] font-semibold text-foreground">{title}</h2>
+      <div className="flex items-center gap-2.5">
+        {icon && (
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#d4a574]/10 text-[#d4a574] ring-1 ring-inset ring-[#d4a574]/15">
+            {icon}
+          </span>
+        )}
+        <h2 className="text-[0.9375rem] font-semibold tracking-[-0.01em] text-foreground">
+          {title}
+        </h2>
       </div>
       {action}
     </div>
