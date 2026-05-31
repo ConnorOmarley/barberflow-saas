@@ -1,6 +1,18 @@
 import type { AppointmentStatus } from "@/lib/dashboard/sample-data";
 
-/** Initials avatar — quiet gradient ring, no photo dependency. */
+/** Deterministic jewel-tone gradients — premium on dark, harmonise with gold. */
+const AVATAR_GRADIENTS: [string, string][] = [
+  ["#3f5278", "#27314d"], // indigo slate
+  ["#4a3d72", "#2c264c"], // violet
+  ["#3a6b59", "#23463a"], // emerald
+  ["#6b4a39", "#46301f"], // copper
+  ["#6b3b4d", "#46232f"], // rose
+  ["#3a5d6b", "#234049"], // teal slate
+  ["#5a5a3a", "#3d3d23"], // olive gold
+  ["#4a4f5e", "#2c303b"], // graphite
+];
+
+/** Initials avatar — deterministic gradient + quiet ring, no photo dependency. */
 export function Avatar({
   name,
   size = 40,
@@ -16,10 +28,19 @@ export function Avatar({
     .join("")
     .toUpperCase();
 
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
+  const [from, to] = AVATAR_GRADIENTS[hash % AVATAR_GRADIENTS.length];
+
   return (
     <div
-      className="flex shrink-0 items-center justify-center rounded-full bg-[#1f2530] font-semibold text-[#cbd5e1] ring-1 ring-white/10"
-      style={{ width: size, height: size, fontSize: size * 0.34 }}
+      className="flex shrink-0 items-center justify-center rounded-full font-semibold text-white/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] ring-1 ring-white/10"
+      style={{
+        width: size,
+        height: size,
+        fontSize: size * 0.36,
+        backgroundImage: `linear-gradient(135deg, ${from}, ${to})`,
+      }}
       aria-hidden
     >
       {initials}
