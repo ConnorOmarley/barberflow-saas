@@ -10,6 +10,7 @@ import { UpcomingAppointments } from "@/components/dashboard/upcoming-appointmen
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { RecentClients } from "@/components/dashboard/recent-clients";
 import { LoyaltyHighlight } from "@/components/dashboard/loyalty-highlight";
+import { DashboardClientLayer } from "@/components/dashboard/dashboard-client-layer";
 
 export const metadata: Metadata = {
   title: "Dashboard — BarberFlow",
@@ -50,6 +51,7 @@ export default async function DashboardPage() {
     profile?.full_name?.trim() ||
     derived.charAt(0).toUpperCase() + derived.slice(1);
   const firstName = displayName.split(" ")[0];
+  const barbershopId = (claims.app_metadata?.barbershop_id as string | undefined) ?? "";
 
   const dateLabel = new Intl.DateTimeFormat("pt-BR", {
     timeZone: "America/Sao_Paulo",
@@ -105,6 +107,13 @@ export default async function DashboardPage() {
 
         {/* ── KPIs ── */}
         <KpiRow />
+
+        {/* ── Setup Checklist + AppointmentDrawer (Client Layer) ── */}
+        {barbershopId && (
+          <div className="mt-4">
+            <DashboardClientLayer barbershopId={barbershopId} />
+          </div>
+        )}
 
         {/* ── Main grid ── */}
         <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-12">
