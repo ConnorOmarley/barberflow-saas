@@ -1,50 +1,51 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { revalidatePath } from 'next/cache'
 
-// ─── createService ────────────────────────────────────────────────────────────
-// barbershop_id is NEVER accepted as a parameter — always read from JWT claims.
-// Threat model T-01-15/T-01-16: owner cannot create services for another tenant.
+async function getBarbershopId(): Promise<string | null> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase.auth.getClaims()
+    if (error || !data?.claims) return null
+    const userId = data.claims.sub as string | undefined
+    if (!userId) return null
+    const admin = createAdminClient()
+    const { data: profile } = await admin
+      .from('profiles')
+      .select('barbershop_id')
+      .eq('id', userId)
+      .single()
+    return profile?.barbershop_id ?? null
+  } catch {
+    return null
+  }
+}
 
 export async function createService(data: {
   name: string
   duration_minutes: number
   price: number
-  description?: string
-}): Promise<
-  { data: { id: string; name: string } } | { error: string }
-> {
+}): Promise<{ data: { id: string; name: string } } | { error: string }> {
   try {
-    const supabase = await createClient()
-    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims()
-    if (claimsError || !claimsData) return { error: 'Não autenticado' }
+    const barbershopId = await getBarbershopId()
+    if (!barbershopId) return { error: 'Barbearia não configurada' }
 
-    const barbershop_id = claimsData.claims.app_metadata?.barbershop_id as string | undefined
-    if (!barbershop_id) return { error: 'Barbearia não configurada' }
-
-    const { data: service, error } = await supabase
+    const admin = createAdminClient()
+    const { data: service, error } = await admin
       .from('services')
-      .insert({
-        barbershop_id,
-        name: data.name,
-        duration_minutes: data.duration_minutes,
-        price: data.price,
-      })
+      .insert({ barbershop_id: barbershopId, name: data.name, duration_minutes: data.duration_minutes, price: data.price })
       .select('id, name')
       .single()
 
     if (error || !service) return { error: error?.message ?? 'Erro ao criar serviço' }
-
     revalidatePath('/dashboard/servicos')
     return { data: service }
   } catch (err) {
     return { error: err instanceof Error ? err.message : 'Erro inesperado' }
   }
 }
-
-// ─── updateService ────────────────────────────────────────────────────────────
-// Belt-and-suspenders: WHERE id AND barbershop_id (beyond RLS) per T-01-16.
 
 export async function updateService(data: {
   id: string
@@ -54,22 +55,14 @@ export async function updateService(data: {
   is_active?: boolean
 }): Promise<{ success: true } | { error: string }> {
   try {
-    const supabase = await createClient()
-    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims()
-    if (claimsError || !claimsData) return { error: 'Não autenticado' }
-
-    const barbershop_id = claimsData.claims.app_metadata?.barbershop_id as string | undefined
-    if (!barbershop_id) return { error: 'Barbearia não configurada' }
+    const barbershopId = await getBarbershopId()
+    if (!barbershopId) return { error: 'Barbearia não configurada' }
 
     const { id, ...fields } = data
-    const { error } = await supabase
-      .from('services')
-      .update(fields)
-      .eq('id', id)
-      .eq('barbershop_id', barbershop_id)
+    const admin = createAdminClient()
+    const { error } = await admin.from('services').update(fields).eq('id', id).eq('barbershop_id', barbershopId)
 
     if (error) return { error: error.message }
-
     revalidatePath('/dashboard/servicos')
     return { success: true }
   } catch (err) {
@@ -77,28 +70,15 @@ export async function updateService(data: {
   }
 }
 
-// ─── deactivateService ────────────────────────────────────────────────────────
-// Sets is_active = false. Records are never deleted.
-
-export async function deactivateService(
-  serviceId: string
-): Promise<{ success: true } | { error: string }> {
+export async function deactivateService(serviceId: string): Promise<{ success: true } | { error: string }> {
   try {
-    const supabase = await createClient()
-    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims()
-    if (claimsError || !claimsData) return { error: 'Não autenticado' }
+    const barbershopId = await getBarbershopId()
+    if (!barbershopId) return { error: 'Barbearia não configurada' }
 
-    const barbershop_id = claimsData.claims.app_metadata?.barbershop_id as string | undefined
-    if (!barbershop_id) return { error: 'Barbearia não configurada' }
-
-    const { error } = await supabase
-      .from('services')
-      .update({ is_active: false })
-      .eq('id', serviceId)
-      .eq('barbershop_id', barbershop_id)
+    const admin = createAdminClient()
+    const { error } = await admin.from('services').update({ is_active: false }).eq('id', serviceId).eq('barbershop_id', barbershopId)
 
     if (error) return { error: error.message }
-
     revalidatePath('/dashboard/servicos')
     return { success: true }
   } catch (err) {
