@@ -24,7 +24,7 @@ export type Database = {
           cancelled_by: string | null
           client_id: string
           created_at: string
-          created_by: string
+          created_by: string | null
           end_time: string
           id: string
           notes: string | null
@@ -42,7 +42,7 @@ export type Database = {
           cancelled_by?: string | null
           client_id: string
           created_at?: string
-          created_by: string
+          created_by?: string | null
           end_time: string
           id?: string
           notes?: string | null
@@ -60,7 +60,7 @@ export type Database = {
           cancelled_by?: string | null
           client_id?: string
           created_at?: string
-          created_by?: string
+          created_by?: string | null
           end_time?: string
           id?: string
           notes?: string | null
