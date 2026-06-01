@@ -1,4 +1,7 @@
+'use client'
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Calendar,
@@ -18,23 +21,23 @@ import {
 import { signOut } from "@/app/actions/auth";
 import { Avatar } from "@/components/dashboard/primitives";
 
-type NavItem = { label: string; icon: LucideIcon; href?: string; active?: boolean };
+type NavItem = { label: string; icon: LucideIcon; href?: string };
 
 const OWNER_NAV: NavItem[] = [
-  { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard", active: true },
-  { label: "Agenda", icon: Calendar },
+  { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "Agenda", icon: Calendar, href: "/dashboard/agenda" },
   { label: "Clientes", icon: Users },
-  { label: "Serviços", icon: Scissors },
+  { label: "Serviços", icon: Scissors, href: "/dashboard/servicos" },
   { label: "Financeiro", icon: Wallet },
   { label: "Fidelidade", icon: Stamp },
-  { label: "Equipe", icon: UsersRound },
+  { label: "Equipe", icon: UsersRound, href: "/dashboard/equipe" },
   { label: "Relatórios", icon: BarChart3 },
   { label: "Marketing", icon: Megaphone },
   { label: "Configurações", icon: Settings },
 ];
 
 const BARBER_NAV: NavItem[] = [
-  { label: "Minha Agenda", icon: Calendar, href: "/agenda", active: true },
+  { label: "Minha Agenda", icon: Calendar, href: "/agenda" },
   { label: "Clientes", icon: Users },
   { label: "Histórico", icon: BarChart3 },
   { label: "Configurações", icon: Settings },
@@ -53,6 +56,15 @@ export function DashboardShell({
 }) {
   const NAV = role === "owner" ? OWNER_NAV : BARBER_NAV;
   const roleLabel = role === "owner" ? "Proprietário" : "Barbeiro";
+  const pathname = usePathname();
+
+  function isActive(item: NavItem): boolean {
+    if (!item.href) return false;
+    // Dashboard exact match to avoid /dashboard/equipe also matching /dashboard
+    if (item.href === "/dashboard") return pathname === "/dashboard";
+    return pathname.startsWith(item.href);
+  }
+
   return (
     <div className="flex min-h-screen bg-background">
       {/* ── Sidebar ── */}
@@ -79,9 +91,13 @@ export function DashboardShell({
           </p>
           <ul className="flex flex-col gap-0.5">
             {NAV.map((item) =>
-              item.href && item.active ? (
+              item.href ? (
                 <li key={item.label}>
-                  <Link href={item.href} className="side-nav" data-active="true">
+                  <Link
+                    href={item.href}
+                    className="side-nav"
+                    data-active={isActive(item) ? "true" : undefined}
+                  >
                     <span className="nav-ico">
                       <item.icon className="h-[17px] w-[17px]" strokeWidth={2} />
                     </span>
