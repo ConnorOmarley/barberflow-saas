@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Loader2 } from 'lucide-react'
@@ -56,7 +56,7 @@ export function StepClient({ onComplete, onBack }: StepClientProps) {
     setValue,
     formState: { errors },
   } = useForm<ClientFormData>({
-    resolver: zodResolver(clientSchema),
+    resolver: zodResolver(clientSchema) as Resolver<ClientFormData>,
     defaultValues: {
       full_name: '',
       whatsapp_number: '',

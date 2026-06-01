@@ -106,12 +106,12 @@ export default async function BarbershopLandingPage({ params }: Props) {
           )}
 
           {/* CTA */}
-          <Button
-            asChild
-            className="h-11 w-full bg-[#d4a574] text-[#0b0f17] hover:bg-[#e8c89a]"
+          <Link
+            href={`/${slug}/booking`}
+            className="flex h-11 w-full items-center justify-center rounded-md bg-[#d4a574] text-sm font-medium text-[#0b0f17] transition-colors hover:bg-[#e8c89a]"
           >
-            <Link href={`/${slug}/booking`}>Agendar agora</Link>
-          </Button>
+            Agendar agora
+          </Link>
         </div>
       </div>
     </div>
