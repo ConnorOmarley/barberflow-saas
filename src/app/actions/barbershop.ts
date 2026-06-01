@@ -74,8 +74,8 @@ export async function createBarbershop(data: {
 }
 
 // ─── createOnboardingBarber ──────────────────────────────────────────────────
-// Creates the first barber row for the barbershop. barbershop_id is always
-// read from JWT claims — never accepted as a parameter from the client.
+// Uses adminClient + reads barbershop_id from profiles table (source of truth)
+// instead of JWT claims — avoids JWT caching issues after Step 1 refresh.
 
 export async function createOnboardingBarber(data: {
   name: string
@@ -88,16 +88,26 @@ export async function createOnboardingBarber(data: {
       return { error: 'Não autenticado.' }
     }
 
-    const claims = authData.claims
-    const barbershopId = claims.app_metadata?.barbershop_id as string | undefined
-    if (!barbershopId) {
+    const userId = authData.claims.sub as string | undefined
+    if (!userId) return { error: 'Usuário não encontrado.' }
+
+    const admin = createAdminClient()
+
+    // Read barbershop_id from profiles (source of truth, not JWT cache)
+    const { data: profile, error: profileError } = await admin
+      .from('profiles')
+      .select('barbershop_id')
+      .eq('id', userId)
+      .single()
+
+    if (profileError || !profile?.barbershop_id) {
       return { error: 'Barbearia não encontrada. Complete o passo 1 primeiro.' }
     }
 
-    const { data: barber, error: insertError } = await supabase
+    const { data: barber, error: insertError } = await admin
       .from('barbers')
       .insert({
-        barbershop_id: barbershopId,
+        barbershop_id: profile.barbershop_id,
         name: data.name,
         phone: data.phone ?? null,
       })
@@ -116,8 +126,7 @@ export async function createOnboardingBarber(data: {
 }
 
 // ─── createOnboardingService ─────────────────────────────────────────────────
-// Creates the first service row for the barbershop. barbershop_id is always
-// read from JWT claims — never accepted as a parameter from the client.
+// Uses adminClient + reads barbershop_id from profiles table (source of truth).
 
 export async function createOnboardingService(data: {
   name: string
@@ -131,16 +140,25 @@ export async function createOnboardingService(data: {
       return { error: 'Não autenticado.' }
     }
 
-    const claims = authData.claims
-    const barbershopId = claims.app_metadata?.barbershop_id as string | undefined
-    if (!barbershopId) {
+    const userId = authData.claims.sub as string | undefined
+    if (!userId) return { error: 'Usuário não encontrado.' }
+
+    const admin = createAdminClient()
+
+    const { data: profile, error: profileError } = await admin
+      .from('profiles')
+      .select('barbershop_id')
+      .eq('id', userId)
+      .single()
+
+    if (profileError || !profile?.barbershop_id) {
       return { error: 'Barbearia não encontrada. Complete o passo 1 primeiro.' }
     }
 
-    const { data: service, error: insertError } = await supabase
+    const { data: service, error: insertError } = await admin
       .from('services')
       .insert({
-        barbershop_id: barbershopId,
+        barbershop_id: profile.barbershop_id,
         name: data.name,
         duration_minutes: data.duration_minutes,
         price: data.price,
