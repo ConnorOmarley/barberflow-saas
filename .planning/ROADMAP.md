@@ -82,14 +82,14 @@ Plans:
   2. If two clients attempt to book the same slot simultaneously, exactly one succeeds and the other receives a "slot unavailable" message — no double-booking occurs
   3. A newly created appointment starts in PENDING status; owner or barber can confirm it to CONFIRMED; the full status lifecycle (PENDING → CONFIRMED → CHECKED_IN → COMPLETED → CANCELLED) is functional
   4. Service duration is respected in slot calculation — a 75-minute service blocks 75 minutes, not just the starting slot
-**Plans:** 4 plans
+**Plans:** 4/4 plans executed
 **UI hint:** yes
 
 Plans:
-- [ ] 02-01-PLAN.md — [CHECKPOINT] Migration Phase 2: exclusion constraint GIST + created_by nullable + 6 RLS anon policies + types regeneration
-- [ ] 02-02-PLAN.md — createPublicClient + middleware slug bypass + route group (public)/[slug] layout/landing/booking page
-- [ ] 02-03-PLAN.md — Booking wizard 4 steps + getAvailableSlots + createPublicAppointment Server Actions
-- [ ] 02-04-PLAN.md — /dashboard/agendamentos — listagem com badge PENDING + confirm/cancel status lifecycle UI
+- [x] 02-01-PLAN.md — [CHECKPOINT] Migration Phase 2: exclusion constraint GIST + created_by nullable + 6 RLS anon policies + types regeneration
+- [x] 02-02-PLAN.md — createPublicClient + middleware slug bypass + route group (public)/[slug] layout/landing/booking page
+- [x] 02-03-PLAN.md — Booking wizard 4 steps + getAvailableSlots + createPublicAppointment Server Actions
+- [x] 02-04-PLAN.md — /dashboard/agendamentos — listagem com badge PENDING + confirm/cancel status lifecycle UI
 
 ### Phase 3: QR Check-In
 **Goal:** A confirmed client can scan a QR code at the barbershop and automatically register their presence, triggering the CHECKED_IN status without any staff action
