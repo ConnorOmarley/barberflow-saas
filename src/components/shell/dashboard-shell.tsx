@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Calendar,
+  CalendarDays,
   Users,
   Scissors,
   Wallet,
@@ -28,6 +29,7 @@ const OWNER_NAV: NavItem[] = [
   { label: "Agenda", icon: Calendar, href: "/dashboard/agenda" },
   { label: "Clientes", icon: Users },
   { label: "Serviços", icon: Scissors, href: "/dashboard/servicos" },
+  { label: "Agendamentos", icon: CalendarDays, href: "/dashboard/agendamentos" },
   { label: "Financeiro", icon: Wallet },
   { label: "Fidelidade", icon: Stamp },
   { label: "Equipe", icon: UsersRound, href: "/dashboard/equipe" },
