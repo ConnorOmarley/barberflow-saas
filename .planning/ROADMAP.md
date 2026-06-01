@@ -59,8 +59,18 @@ Plans:
   4. Barber can log in, view their own schedule for the day and week, and mark an appointment as COMPLETED
   5. Owner or barber can create a manual appointment (walk-in or phone call) from the dashboard panel
   6. Owner can cancel any appointment from the panel with an optional reason
-**Plans:** TBD
+**Plans:** 8/8 plans executed
 **UI hint:** yes
+
+Plans:
+- [x] 01-01-PLAN.md — shadcn components + migration Phase 1 (5 tabelas RLS) + admin client
+- [x] 01-02-PLAN.md — [CHECKPOINT] Apply migration + regenerar tipos TypeScript
+- [x] 01-03-PLAN.md — Wizard onboarding 4 passos com resume detection
+- [x] 01-04-PLAN.md — Middleware guards + aceitar-convite + nav ativo
+- [x] 01-05-PLAN.md — /dashboard/equipe — CRUD barbeiros + invite + upload
+- [x] 01-06-PLAN.md — /dashboard/servicos — CRUD serviços + drawer + templates
+- [x] 01-07-PLAN.md — /agenda barbeiro — tabs Dia/Semana + COMPLETED + cancel
+- [x] 01-08-PLAN.md — AppointmentDrawer + CancelDialog + SetupChecklist
 
 ### Phase 2: Client Booking Portal
 **Goal:** Any client can book an appointment at a specific barbershop — choosing service, barber, and available time slot — with no double-booking possible
