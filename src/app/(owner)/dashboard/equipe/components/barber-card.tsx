@@ -70,15 +70,11 @@ export function BarberCard({ barber, serviceCount, onEdit }: BarberCardProps) {
 
         {/* Dropdown actions */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 shrink-0 text-[var(--text-secondary)]"
-              aria-label="Ações do barbeiro"
-            >
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
+          <DropdownMenuTrigger
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-[var(--text-secondary)] transition-colors hover:bg-white/[0.06] hover:text-foreground focus:outline-none"
+            aria-label="Ações do barbeiro"
+          >
+            <MoreHorizontal className="h-4 w-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={onEdit}>

@@ -124,6 +124,7 @@ export default async function AgendaPage({
         appointments={appointments ?? []}
         selectedDateISO={selectedDateISO}
         initialTab={activeTab}
+        barberName={barberRow.name}
       />
     </DashboardShell>
   )

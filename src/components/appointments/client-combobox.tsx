@@ -123,21 +123,17 @@ export function ClientCombobox({ value, onChange, onNewClient }: ClientComboboxP
       {/* Combobox de busca */}
       {!showInlineCreate && (
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              type="button"
-              variant="outline"
+          <PopoverTrigger
               role="combobox"
               aria-expanded={open}
               aria-label="Selecionar cliente"
               className={cn(
-                'w-full justify-between font-normal',
+                'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-normal',
                 !selectedClient && 'text-muted-foreground'
               )}
             >
               <span className="truncate">{displayLabel}</span>
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[400px] p-0" align="start">
             <Command shouldFilter={false}>

@@ -197,7 +197,7 @@ export function BarberDrawer({
           id: barber.id,
           name: name.trim(),
           phone: phone.trim() || undefined,
-          photo_url: photoUrl !== undefined ? photoUrl : barber.photo_url,
+          photo_url: (photoUrl !== undefined ? photoUrl : barber.photo_url) ?? undefined,
           specialties: barber.specialties ?? undefined,
         })
 
@@ -451,7 +451,7 @@ export function BarberDrawer({
                             <Select
                               value={state.commission_type ?? ''}
                               onValueChange={(v) =>
-                                updateCommission(svc.id, 'commission_type', v)
+                                updateCommission(svc.id, 'commission_type', v ?? '')
                               }
                             >
                               <SelectTrigger className="h-8 text-xs w-36">

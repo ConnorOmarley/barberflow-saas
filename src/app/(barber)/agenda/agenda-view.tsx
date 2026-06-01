@@ -23,6 +23,8 @@ import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Avatar } from '@/components/dashboard/primitives'
 import { updateAppointmentStatus, cancelAppointment } from '@/app/actions/appointments'
+import { AppointmentDrawer } from '@/components/appointments/appointment-drawer'
+import { AppointmentEditDrawer, type AppointmentEditData } from '@/components/appointments/appointment-edit-drawer'
 
 // ------- Types -------
 
@@ -47,6 +49,7 @@ type Props = {
   appointments: Appointment[]
   selectedDateISO: string
   initialTab: string
+  barberName: string
 }
 
 // ------- Status helpers -------
@@ -207,11 +210,13 @@ function AppointmentRow({
   onCompleted,
   onCancelled,
   onOpenCancel,
+  onOpenEdit,
 }: {
   appointment: Appointment
   onCompleted: (id: string) => Promise<void>
   onCancelled: (id: string) => void
   onOpenCancel: (id: string, clientName: string) => void
+  onOpenEdit: (data: AppointmentEditData) => void
 }) {
   const [isUpdating, setIsUpdating] = useState(false)
   const status = appointment.status as AppointmentStatus
@@ -256,15 +261,12 @@ function AppointmentRow({
 
       {/* Actions dropdown */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-[var(--text-secondary)] transition-colors hover:bg-white/[0.06] hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a574]/50"
-            aria-label="Ações do agendamento"
-            disabled={isUpdating}
-          >
-            <MoreHorizontal className="h-4 w-4" />
-          </button>
+        <DropdownMenuTrigger
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-[var(--text-secondary)] transition-colors hover:bg-white/[0.06] hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a574]/50"
+          aria-label="Ações do agendamento"
+          disabled={isUpdating}
+        >
+          <MoreHorizontal className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {status !== 'COMPLETED' && status !== 'CANCELLED' && (
@@ -275,9 +277,17 @@ function AppointmentRow({
           )}
           <DropdownMenuItem
             className="gap-2 text-[var(--text-secondary)]"
-            onClick={() => {
-              /* Editar wired in plan 01-08 */
-            }}
+            onClick={() =>
+              onOpenEdit({
+                id: appointment.id,
+                clientName,
+                serviceName,
+                barberName: '',
+                startTime: appointment.start_time,
+                endTime: appointment.end_time,
+                status: appointment.status,
+              })
+            }
           >
             <CalendarPlus className="h-4 w-4" />
             Editar
@@ -351,7 +361,7 @@ function WeekColumn({
 
 // ------- Main AgendaView -------
 
-export function AgendaView({ appointments: initialAppointments, selectedDateISO, initialTab }: Props) {
+export function AgendaView({ appointments: initialAppointments, selectedDateISO, initialTab, barberName }: Props) {
   const router = useRouter()
   const [currentTab, setCurrentTab] = useState(initialTab)
 
@@ -364,6 +374,10 @@ export function AgendaView({ appointments: initialAppointments, selectedDateISO,
     id: string
     clientName: string
   } | null>(null)
+
+  // Drawer state
+  const [isNewDrawerOpen, setIsNewDrawerOpen] = useState(false)
+  const [editTarget, setEditTarget] = useState<AppointmentEditData | null>(null)
 
   // Navigate to a different date, keeping current tab
   function navigateTo(dateISO: string) {
@@ -463,13 +477,10 @@ export function AgendaView({ appointments: initialAppointments, selectedDateISO,
             <ChevronRight className="h-4 w-4" />
           </button>
 
-          {/* New appointment button — wired in plan 01-08 */}
           <Button
             type="button"
             className="ml-2 h-10 gap-2 bg-amber-600 text-black hover:bg-amber-500"
-            onClick={() => {
-              /* AppointmentDrawer wired in plan 01-08 */
-            }}
+            onClick={() => setIsNewDrawerOpen(true)}
           >
             <CalendarPlus className="h-4 w-4" />
             <span className="hidden sm:inline">Novo agendamento</span>
@@ -516,6 +527,7 @@ export function AgendaView({ appointments: initialAppointments, selectedDateISO,
                   onCompleted={handleCompleted}
                   onCancelled={handleCancelled}
                   onOpenCancel={openCancelDialog}
+                  onOpenEdit={(data) => setEditTarget({ ...data, barberName })}
                 />
               ))}
             </div>
@@ -546,6 +558,23 @@ export function AgendaView({ appointments: initialAppointments, selectedDateISO,
           onClose={() => setCancelTarget(null)}
         />
       )}
+
+      {/* New appointment drawer */}
+      <AppointmentDrawer
+        open={isNewDrawerOpen}
+        onOpenChange={setIsNewDrawerOpen}
+      />
+
+      {/* Edit appointment drawer */}
+      <AppointmentEditDrawer
+        open={editTarget !== null}
+        onOpenChange={(v) => { if (!v) setEditTarget(null) }}
+        appointment={editTarget}
+        onCancelled={() => {
+          if (editTarget) handleCancelled(editTarget.id)
+          setEditTarget(null)
+        }}
+      />
     </div>
   )
 }

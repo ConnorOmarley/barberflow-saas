@@ -51,7 +51,6 @@ export async function updateService(data: {
   name?: string
   duration_minutes?: number
   price?: number
-  description?: string
   is_active?: boolean
 }): Promise<{ success: true } | { error: string }> {
   try {

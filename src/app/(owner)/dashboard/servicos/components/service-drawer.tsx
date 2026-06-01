@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Loader2 } from 'lucide-react'
@@ -52,7 +52,6 @@ const serviceSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   duration_minutes: z.coerce.number().min(1, 'Duração inválida'),
   price: z.coerce.number().min(0, 'Preço inválido'),
-  description: z.string().optional(),
 })
 
 type ServiceFormValues = z.infer<typeof serviceSchema>
@@ -84,13 +83,12 @@ export function ServiceDrawer({
   const [isDeactivating, setIsDeactivating] = useState(false)
 
   const form = useForm<ServiceFormValues>({
-    resolver: zodResolver(serviceSchema),
+    resolver: zodResolver(serviceSchema) as Resolver<ServiceFormValues>,
     defaultValues: {
       name: '',
       duration_minutes: 30,
       price: 0,
-      description: '',
-    },
+          },
   })
 
   // Sync form defaults and barber selection when editing
@@ -104,11 +102,10 @@ export function ServiceDrawer({
           name: service.name,
           duration_minutes: service.duration_minutes,
           price: Number(service.price),
-          description: '',
-        })
+                  })
         setSelectedBarberIds(new Set(service.barber_services.map((bs) => bs.barber_id)))
       } else {
-        form.reset({ name: '', duration_minutes: 30, price: 0, description: '' })
+        form.reset({ name: '', duration_minutes: 30, price: 0 })
         setSelectedBarberIds(new Set())
       }
     }
@@ -119,8 +116,7 @@ export function ServiceDrawer({
       name: template.name,
       duration_minutes: template.duration_minutes,
       price: template.price,
-      description: '',
-    })
+          })
   }
 
   function toggleBarber(barberId: string) {
@@ -157,8 +153,7 @@ export function ServiceDrawer({
         name: values.name,
         duration_minutes: values.duration_minutes,
         price: values.price,
-        description: values.description,
-      })
+              })
       if ('error' in result) {
         setErrorMessage(result.error)
         return
@@ -304,24 +299,6 @@ export function ServiceDrawer({
                   )}
                 />
 
-                {/* Descrição (optional) */}
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Descrição (opcional)</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          rows={3}
-                          placeholder="Descreva os detalhes do serviço..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
               </div>
 
               {/* Section: Barbeiros — separator above */}

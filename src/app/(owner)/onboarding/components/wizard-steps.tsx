@@ -120,7 +120,7 @@ export function Step1Form({ onComplete, initialData }: Step1FormProps) {
 
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="timezone-trigger">Fuso horário</Label>
-        <Select value={timezone} onValueChange={setTimezone}>
+        <Select value={timezone} onValueChange={(v) => setTimezone(v ?? '')}>
           <SelectTrigger
             id="timezone-trigger"
             className="w-full h-10"
@@ -411,8 +411,9 @@ export function Step4Form({ onComplete, onBack }: Step4FormProps) {
         <Select
           value={duration}
           onValueChange={(val) => {
-            setDuration(val)
-            setValue('duration_minutes', parseInt(val, 10))
+            const v = val ?? ''
+            setDuration(v)
+            setValue('duration_minutes', parseInt(v, 10))
           }}
         >
           <SelectTrigger id="service-duration" className="w-full h-10">

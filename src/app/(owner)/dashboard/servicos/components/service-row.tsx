@@ -86,15 +86,11 @@ export function ServiceRow({
 
       {/* Actions dropdown */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            className="opacity-0 transition-opacity group-hover:opacity-100 focus:opacity-100"
-            aria-label="Ações"
-          >
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
+        <DropdownMenuTrigger
+          className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-secondary)] opacity-0 transition-opacity hover:bg-white/[0.06] hover:text-foreground focus:opacity-100 focus:outline-none group-hover:opacity-100"
+          aria-label="Ações"
+        >
+          <MoreHorizontal className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" side="bottom">
           <DropdownMenuItem onClick={onEdit}>

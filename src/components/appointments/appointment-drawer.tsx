@@ -296,7 +296,7 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
               <Label htmlFor="barber-select">Barbeiro *</Label>
               <Select
                 value={selectedBarberId}
-                onValueChange={setSelectedBarberId}
+                onValueChange={(v) => setSelectedBarberId(v ?? '')}
                 disabled={isLoadingBarbers}
               >
                 <SelectTrigger id="barber-select" aria-label="Selecionar barbeiro">
@@ -321,7 +321,7 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
               <Label htmlFor="service-select">Serviço *</Label>
               <Select
                 value={selectedServiceId}
-                onValueChange={setSelectedServiceId}
+                onValueChange={(v) => setSelectedServiceId(v ?? '')}
                 disabled={!selectedBarberId || isLoadingServices}
               >
                 <SelectTrigger id="service-select" aria-label="Selecionar serviço">
@@ -370,7 +370,7 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
               <Label htmlFor="time-select">Horário *</Label>
               <Select
                 value={selectedTime}
-                onValueChange={setSelectedTime}
+                onValueChange={(v) => setSelectedTime(v ?? '')}
                 disabled={!selectedBarberId || !selectedDate || isLoadingSlots}
               >
                 <SelectTrigger id="time-select" aria-label="Selecionar horário">
