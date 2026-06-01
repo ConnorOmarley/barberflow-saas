@@ -6,6 +6,15 @@ export async function middleware(request: NextRequest) {
     request: { headers: request.headers },
   })
 
+  // Bypass para portal publico — DEVE ser verificado ANTES de inicializar o Supabase client.
+  // Slugs de barbearia sao lowercase alfanumericos com hifens (ex: /minha-barbearia, /minha-barbearia/booking).
+  // Rotas reservadas do sistema sao listadas explicitamente para evitar falsos positivos (T-02-05).
+  const _pubPathname = request.nextUrl.pathname
+  const reservedPaths = ['/entrar', '/cadastro', '/dashboard', '/agenda', '/onboarding', '/auth', '/_next', '/api']
+  const isReserved = reservedPaths.some(p => _pubPathname.startsWith(p))
+  const isPublicSlug = !isReserved && /^\/[a-z0-9][a-z0-9-]*($|\/.*)$/.test(_pubPathname)
+  if (isPublicSlug) return NextResponse.next()
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
