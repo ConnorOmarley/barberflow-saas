@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Loader2, Scissors, Eye, EyeOff } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { linkBarberProfile } from '@/app/actions/barbers'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -75,6 +76,16 @@ export default function AceitarConvitePage() {
         'Ocorreu um erro inesperado. Tente novamente ou entre em contato com o suporte.'
       )
       return
+    }
+
+    // Phase 1 addition: if invite carried a barber_id, link profile_id via Server Action.
+    // The Postgres trigger on_invite_accepted is the primary mechanism; this is the fallback
+    // per RESEARCH.md open question #1. barber_id comes from user_metadata (set by admin
+    // via inviteUserByEmail options.data) — never from user input.
+    const { data: { user } } = await supabase.auth.getUser()
+    const barberId = user?.user_metadata?.barber_id as string | undefined
+    if (barberId) {
+      await linkBarberProfile(barberId)
     }
 
     router.push('/agenda')

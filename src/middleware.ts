@@ -54,6 +54,22 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/agenda', request.url))
   }
 
+  // Rule D — Owner without barbershop_id on /dashboard routes → redirect to /onboarding
+  // Note: Rule E (redirect /onboarding → /dashboard) only fires when barbershop_id IS present,
+  // preventing an infinite redirect loop during onboarding JWT refresh lag.
+  const barbershop_id = claims?.app_metadata?.barbershop_id as string | undefined
+  if (isOwnerRoute && role === 'owner' && claims && !error && !barbershop_id) {
+    return NextResponse.redirect(new URL('/onboarding', request.url))
+  }
+
+  // Rule E — Owner with barbershop_id trying to access /onboarding → redirect to /dashboard
+  // One-direction only — prevents loop: after step 1, old JWT may lack barbershop_id
+  // so we only redirect /onboarding → /dashboard when barbershop_id IS present in JWT.
+  const isOnboardingRoute = pathname.startsWith('/onboarding')
+  if (isOnboardingRoute && role === 'owner' && claims && !error && barbershop_id) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
   return response
 }
 
