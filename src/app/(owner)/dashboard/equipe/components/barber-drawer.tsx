@@ -320,7 +320,7 @@ export function BarberDrawer({
         </SheetHeader>
 
         {/* Scrollable body */}
-        <ScrollArea className="flex-1">
+        <div className="flex-1 min-h-0 overflow-y-auto">
           <div className="px-6 py-5 space-y-6">
             {/* Error alert */}
             {errorMessage && (
@@ -545,7 +545,7 @@ export function BarberDrawer({
               )}
             </section>
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Footer */}
         <div className="sticky bottom-0 border-t border-white/[0.06] bg-card px-6 py-4">
