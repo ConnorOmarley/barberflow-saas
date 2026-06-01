@@ -1,11 +1,13 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { revalidatePath } from 'next/cache'
 
 // ─── createBarbershop ────────────────────────────────────────────────────────
-// Idempotency guard: if barbershop_id already exists in JWT claims (owner
-// refreshed page mid-onboarding), return early without creating a second row.
+// Uses adminClient to bypass RLS on first INSERT — at this point the owner has
+// no barbershop_id in JWT yet (bootstrap problem). userId always comes from the
+// authenticated session, never from client input.
 
 export async function createBarbershop(data: {
   name: string
@@ -41,8 +43,10 @@ export async function createBarbershop(data: {
       '-' +
       Math.random().toString(36).slice(2, 7)
 
-    // INSERT into barbershops
-    const { data: barbershop, error: insertError } = await supabase
+    // Use admin client to bypass RLS — owner has no barbershop_id claim yet
+    const admin = createAdminClient()
+
+    const { data: barbershop, error: insertError } = await admin
       .from('barbershops')
       .insert({ name: data.name, slug, timezone: data.timezone })
       .select('id')
@@ -52,8 +56,8 @@ export async function createBarbershop(data: {
       return { error: insertError?.message ?? 'Erro ao criar barbearia.' }
     }
 
-    // UPDATE profiles.barbershop_id so JWT can be refreshed with the new claim
-    const { error: updateError } = await supabase
+    // UPDATE profiles.barbershop_id so JWT hook picks it up on next refresh
+    const { error: updateError } = await admin
       .from('profiles')
       .update({ barbershop_id: barbershop.id })
       .eq('id', userId)
