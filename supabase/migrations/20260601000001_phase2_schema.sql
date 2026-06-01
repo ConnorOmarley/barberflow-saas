@@ -48,7 +48,7 @@ ALTER TABLE public.appointments
   ADD CONSTRAINT appointments_no_overlap
   EXCLUDE USING gist (
     barber_id WITH =,
-    tsrange(start_time, end_time, '[)') WITH &&
+    tstzrange(start_time, end_time, '[)') WITH &&
   )
   WHERE (status != 'CANCELLED');
 
