@@ -2,7 +2,6 @@
 
 import crypto from 'crypto'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { revalidatePath } from 'next/cache'
 
 // CRITICAL: Do NOT add `export const runtime = 'edge'`
 // crypto.createHmac is Node.js runtime only — not available in Edge Runtime.
@@ -182,8 +181,6 @@ export async function processQrCheckIn(
 
     // --- Step 8: Broadcast Realtime (fire-and-forget) + revalidate ---
     broadcastCheckIn(appointment.barbershop_id, appointmentId).catch(() => {})
-    revalidatePath('/dashboard/agendamentos')
-    revalidatePath('/dashboard')
 
     const clientName =
       (appointment.clients as { full_name: string } | null)?.full_name ?? 'Cliente'
