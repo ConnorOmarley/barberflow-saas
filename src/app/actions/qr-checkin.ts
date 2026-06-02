@@ -140,8 +140,14 @@ export async function processQrCheckIn(
     if (!appointment) return { error: 'Agendamento não encontrado' }
 
     // --- Step 4: Verificar status (ANTES da janela de tempo) ---
+    if (appointment.status === 'CHECKED_IN' || appointment.status === 'COMPLETED') {
+      return { error: 'Check-in já realizado para este agendamento.' }
+    }
+    if (appointment.status === 'CANCELLED') {
+      return { error: 'Este agendamento foi cancelado.' }
+    }
     if (appointment.status !== 'CONFIRMED') {
-      return { error: `Agendamento não confirmado (status: ${appointment.status})` }
+      return { error: 'Agendamento não disponível para check-in.' }
     }
 
     // --- Step 5: Verificar janela de tempo (±30 min a partir do start_time do DB) ---
