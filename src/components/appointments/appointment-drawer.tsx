@@ -298,8 +298,8 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 onValueChange={(v) => setSelectedBarberId(v ?? '')}
                 disabled={isLoadingBarbers}
               >
-                <SelectTrigger id="barber-select" aria-label="Selecionar barbeiro">
-                  <span className={`text-sm ${!selectedBarberId ? 'text-muted-foreground' : ''}`}>
+                <SelectTrigger id="barber-select" className="w-full" aria-label="Selecionar barbeiro">
+                  <span className={`text-sm truncate ${!selectedBarberId ? 'text-muted-foreground' : ''}`}>
                     {selectedBarberId
                       ? (barbers.find((b) => b.id === selectedBarberId)?.name ?? 'Barbeiro')
                       : isLoadingBarbers ? 'Carregando...' : 'Selecione um barbeiro'}
@@ -323,8 +323,8 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 onValueChange={(v) => setSelectedServiceId(v ?? '')}
                 disabled={!selectedBarberId || isLoadingServices}
               >
-                <SelectTrigger id="service-select" aria-label="Selecionar serviço">
-                  <span className={`text-sm ${!selectedServiceId ? 'text-muted-foreground' : ''}`}>
+                <SelectTrigger id="service-select" className="w-full" aria-label="Selecionar serviço">
+                  <span className={`text-sm truncate ${!selectedServiceId ? 'text-muted-foreground' : ''}`}>
                     {selectedServiceId
                       ? (services.find((s) => s.id === selectedServiceId)?.name ?? 'Serviço')
                       : !selectedBarberId ? 'Selecione o barbeiro primeiro'
@@ -336,15 +336,21 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 <SelectContent>
                   {services.map((svc) => (
                     <SelectItem key={svc.id} value={svc.id}>
-                      <span>{svc.name}</span>
-                      <span className="ml-2 text-xs text-muted-foreground tabular-nums">
-                        {svc.duration_minutes}min · R${' '}
-                        {svc.price.toFixed(2)}
-                      </span>
+                      {svc.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+              {/* Metadados do serviço selecionado abaixo do select */}
+              {selectedServiceId && (() => {
+                const svc = services.find((s) => s.id === selectedServiceId)
+                if (!svc) return null
+                return (
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {svc.duration_minutes} min · R$ {Number(svc.price).toFixed(2)}
+                  </p>
+                )
+              })()}
             </div>
 
             {/* Data */}
@@ -369,7 +375,7 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 onValueChange={(v) => setSelectedTime(v ?? '')}
                 disabled={!selectedBarberId || !selectedDate || isLoadingSlots}
               >
-                <SelectTrigger id="time-select" aria-label="Selecionar horário">
+                <SelectTrigger id="time-select" className="w-full" aria-label="Selecionar horário">
                   <span className={`text-sm ${!selectedTime ? 'text-muted-foreground' : ''}`}>
                     {selectedTime
                       ? selectedTime
