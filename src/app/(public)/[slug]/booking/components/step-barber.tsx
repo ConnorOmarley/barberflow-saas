@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 interface Barber {
@@ -14,13 +15,27 @@ interface StepBarberProps {
   onBack: () => void
 }
 
-/**
- * Step 2 — Selecionar barbeiro.
- *
- * Exibe cards clicáveis com avatar (foto ou inicial) e nome.
- * Se barbers.length === 0: exibe mensagem de fallback.
- * Botão "Voltar" retorna para o Step 1.
- */
+function BarberAvatar({ name, photoUrl }: { name: string; photoUrl: string | null }) {
+  const [imgError, setImgError] = useState(false)
+
+  if (photoUrl && !imgError) {
+    return (
+      <img
+        src={photoUrl}
+        alt=""
+        className="size-10 shrink-0 rounded-full object-cover"
+        onError={() => setImgError(true)}
+      />
+    )
+  }
+
+  return (
+    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#d4a574]/20 text-sm font-bold text-[#d4a574]">
+      {name.charAt(0).toUpperCase()}
+    </div>
+  )
+}
+
 export function StepBarber({ barbers, onComplete, onBack }: StepBarberProps) {
   return (
     <div className="flex flex-col gap-4">
@@ -39,18 +54,7 @@ export function StepBarber({ barbers, onComplete, onBack }: StepBarberProps) {
                 onClick={() => onComplete(barber)}
                 className="flex items-center gap-4 rounded-xl border border-white/10 px-4 py-4 text-left transition-all duration-150 hover:border-[#d4a574]/50 hover:bg-[#d4a574]/5 focus:outline-none focus:ring-2 focus:ring-[#d4a574]/40"
               >
-                {/* Avatar — foto ou inicial */}
-                {barber.photo_url ? (
-                  <img
-                    src={barber.photo_url}
-                    alt={barber.name}
-                    className="size-10 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#d4a574]/20 text-sm font-bold text-[#d4a574]">
-                    {barber.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
+                <BarberAvatar name={barber.name} photoUrl={barber.photo_url} />
                 <p className="font-medium text-foreground">{barber.name}</p>
               </button>
             ))}

@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executed
-stopped_at: Phase 2 executed — 4/4 plans complete, pending verification
+status: planned
+stopped_at: Phase 3 planned — 4 planos criados (03-01 a 03-04). Pronto para executar.
 last_updated: "2026-06-01T00:00:00.000Z"
 last_activity: 2026-06-01
 progress:
   total_phases: 9
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 28
   completed_plans: 20
-  percent: 33
+  percent: 44
 ---
 
 # Project State
@@ -21,22 +21,21 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-29)
 
 **Core value:** A client can book a haircut online at any registered barbershop, show up, scan the QR, get served, and accumulate loyalty points — all without paper or manual WhatsApp.
-**Current focus:** Phase 1 — Owner Onboarding + Barber & Service Setup (executed, awaiting verification)
+**Current focus:** Phase 3 — QR Check-In (planejado, pronto para execução)
 
 ## Current Position
 
-Phase: 1 of 8 EXECUTED — 8/8 plans complete
-Plan: 8 of 8 in Phase 1 (all executed)
-Status: Phase 1 executed — run /gsd:verify-work 1
+Phase: 2 of 8 VERIFIED — 4/4 plans complete, 4/4 SC passed
+Status: Phase 2 verified — run /gsd:plan-phase 3
 Last activity: 2026-06-01
 
-Progress: [█░░░░░░░░░] 11% (1/9 phases)
+Progress: [██░░░░░░░░] 22% (2/9 phases)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
+- Total plans completed: 20
 - Average duration: ~40 minutes
 - Total execution time: ~2.2 hours
 
@@ -44,7 +43,9 @@ Progress: [█░░░░░░░░░] 11% (1/9 phases)
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| Phase 0 | 4/8 | ~162 min | ~40 min |
+| Phase 0 | 8/8 | ~162 min | ~40 min |
+| Phase 1 | 8/8 | executed | - |
+| Phase 2 | 4/4 | executed | - |
 
 **Recent Trend:**
 
@@ -77,6 +78,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Wrapped useSearchParams() in Suspense boundary on /entrar to fix Next.js 15 SSG prerender requirement
 - Plan 00-06: getClaims() does not exist in @supabase/ssr — used getUser() for expired token detection on nova-senha and aceitar-convite
 - Plan 00-07: signOut Server Action extracted to src/app/actions/auth.ts for reuse; barber layout redirects owner role to /dashboard (not /entrar)
+- Phase 02 UAT: BarberAvatar com onError handler — photo_url inválida exibia alt text no lugar do avatar; corrigido com estado de erro no componente
 
 ### Pending Todos
 
@@ -96,6 +98,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-05-31T00:00:00.000Z
-Stopped at: Phase 1 execution complete — 8/8 plans done. Run /gsd:verify-work 1 to verify.
-Resume file: .planning/phases/01-owner-onboarding-barber-service-setup/01-08-SUMMARY.md
+Last session: 2026-06-01T00:00:00.000Z
+Stopped at: Phase 3 planejada — 4 planos prontos. Execute /gsd:execute-phase 3.
+Resume file: .planning/phases/03-qr-check-in/03-01-PLAN.md
