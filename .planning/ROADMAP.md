@@ -9,7 +9,7 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
 - [x] **Phase 0: Infrastructure & Multi-Tenancy Baseline** - Supabase schema with RLS on every table, JWT with role + tenant claims, Next.js route groups, CI guard ✓ 2026-05-31
 - [ ] **Phase 1: Owner Onboarding + Barber & Service Setup** - Guided onboarding, barber profiles, service catalogue, commission config, manual booking by staff
 - [x] **Phase 2: Client Booking Portal** - Public booking flow (service → barber → slot), real-time slot blocking, status lifecycle ✓ 2026-06-01
-- [ ] **Phase 3: QR Check-In** - Signed QR per appointment, scan-to-CHECKED_IN, revocation on cancel
+- [x] **Phase 3: QR Check-In** - Signed QR per appointment, scan-to-CHECKED_IN, revocation on cancel ✓ 2026-06-02
 - [ ] **Phase 4: Loyalty — Carimbo Digital** - Per-tenant loyalty rules, auto-stamp on COMPLETED, redemption by owner
 - [ ] **Phase 5: WhatsApp Notifications** - Confirmation and reminder messages via WhatsApp Business API, LGPD opt-in
 - [ ] **Phase 6: SaaS Billing (Asaas)** - Subscription creation on onboarding, access enforcement, idempotent webhook processing
@@ -105,10 +105,10 @@ Plans:
 **UI hint:** yes
 
 Plans:
-- [ ] 03-01-PLAN.md — [CHECKPOINT] Migration: tabela used_qr_tokens + RLS service-role-only + QR_HMAC_SECRET no .env.local
-- [ ] 03-02-PLAN.md — generateQrToken Server Action + AppointmentQRCode component + página pública /qr/[appointmentId] + botão QR no dashboard
-- [ ] 03-03-PLAN.md — processQrCheckIn Server Action (HMAC verify + time window + single-use) + página pública /qr/check-in
-- [ ] 03-04-PLAN.md — Realtime postgres_changes listener + CheckInListener component + toast "Cliente chegou!" + CHECKED_IN → COMPLETED
+- [x] 03-01-PLAN.md — [CHECKPOINT] Migration: tabela used_qr_tokens + RLS service-role-only + QR_HMAC_SECRET no .env.local
+- [x] 03-02-PLAN.md — generateQrToken Server Action + AppointmentQRCode component + página pública /qr/[appointmentId] + botão QR no dashboard
+- [x] 03-03-PLAN.md — processQrCheckIn Server Action (HMAC verify + time window + single-use) + página pública /qr/check-in
+- [x] 03-04-PLAN.md — Realtime postgres_changes listener + CheckInListener component + toast "Cliente chegou!" + CHECKED_IN → COMPLETED
 
 ### Phase 4: Loyalty — Carimbo Digital
 **Goal:** Clients automatically accumulate loyalty stamps as appointments are completed, and owners can redeem rewards when a client's card is full
@@ -184,7 +184,7 @@ Plans:
 | 0. Infrastructure & Multi-Tenancy Baseline | 8/8 | ✅ Complete | 2026-05-31 |
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 4/4 | ✅ Complete | 2026-06-01 |
-| 3. QR Check-In | 0/4 | Planned | - |
+| 3. QR Check-In | 4/4 | ✅ Complete | 2026-06-02 |
 | 4. Loyalty — Carimbo Digital | 0/TBD | Not started | - |
 | 5. WhatsApp Notifications | 0/TBD | Not started | - |
 | 6. SaaS Billing (Asaas) | 0/TBD | Not started | - |
