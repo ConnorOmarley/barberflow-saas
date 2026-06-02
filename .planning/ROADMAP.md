@@ -119,8 +119,13 @@ Plans:
   1. Owner can configure the loyalty rule for their barbershop (e.g., "10 haircuts = 1 free") from the dashboard
   2. When a barber marks an appointment COMPLETED, a loyalty stamp is automatically registered on the client's card — no manual action needed
   3. Owner can see a client's loyalty card progress in the dashboard and redeem a completed card (applying a discount or free service) with a single action
-**Plans:** TBD
+**Plans:** 3 plans
 **UI hint:** yes
+
+Plans:
+- [ ] 04-01-PLAN.md — [CHECKPOINT] Migration: loyalty_rules + loyalty_stamps + loyalty_redemptions (RLS + índices) + types regeneration
+- [ ] 04-02-PLAN.md — loyalty.ts actions (getLoyaltyRule, upsertLoyaltyRule, redeemLoyaltyCard) + hook auto-stamp em appointments.ts + página /dashboard/fidelidade + drawer de configuração
+- [ ] 04-03-PLAN.md — LoyaltyCardList component com progresso por cliente, barra visual e botão Resgatar condicional
 
 ### Phase 5: WhatsApp Notifications
 **Goal:** Clients automatically receive WhatsApp messages confirming their booking and reminding them before the appointment, with explicit LGPD opt-in captured and stored
@@ -185,7 +190,7 @@ Plans:
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 4/4 | ✅ Complete | 2026-06-01 |
 | 3. QR Check-In | 4/4 | ✅ Complete | 2026-06-02 |
-| 4. Loyalty — Carimbo Digital | 0/TBD | Not started | - |
+| 4. Loyalty — Carimbo Digital | 0/3 | Not started | - |
 | 5. WhatsApp Notifications | 0/TBD | Not started | - |
 | 6. SaaS Billing (Asaas) | 0/TBD | Not started | - |
 | 7. Financial Reports & Dashboard | 0/TBD | Not started | - |
