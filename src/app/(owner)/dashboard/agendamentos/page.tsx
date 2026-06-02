@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { DashboardShell } from '@/components/shell/dashboard-shell'
 import { AppointmentList } from './components/appointment-list'
+import { CheckInListener } from '@/components/dashboard/check-in-listener'
 
 export const metadata: Metadata = {
   title: 'Agendamentos | BarberFlow',
@@ -52,6 +53,8 @@ export default async function AgendamentosPage() {
 
   return (
     <DashboardShell displayName={displayName} email={email}>
+      {/* CheckInListener: Client Component invisível que assina Realtime e exibe toasts */}
+      <CheckInListener barbershopId={barbershop_id} />
       <div className="px-5 py-6 lg:px-8 lg:py-7">
         <div className="mb-6 flex items-center gap-3">
           <div>
