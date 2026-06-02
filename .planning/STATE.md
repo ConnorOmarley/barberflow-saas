@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: "Phase 3 planejada — 4 planos prontos. Execute /gsd:execute-phase 3."
-last_updated: "2026-06-02T20:40:04.475Z"
+stopped_at: "Phase 3 executada — 4/4 planos completos. Execute /gsd:verify-work 3."
+last_updated: "2026-06-02T21:45:00.000Z"
 last_activity: 2026-06-01
 progress:
   total_phases: 9
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-05-29)
 
 ## Current Position
 
-Phase: 2 of 8 VERIFIED — 4/4 plans complete, 4/4 SC passed
-Status: Phase 2 verified — run /gsd:plan-phase 3
-Last activity: 2026-06-01
+Phase: 3 of 8 — 4/4 plans complete (03-01 a 03-04 todos executados)
+Status: Phase 3 executada — run /gsd:verify-work 3
+Last activity: 2026-06-02
 
-Progress: [██░░░░░░░░] 22% (2/9 phases)
+Progress: [███░░░░░░░] 33% (3/9 phases)
 
 ## Performance Metrics
 
@@ -79,6 +79,7 @@ Recent decisions affecting current work:
 - Plan 00-06: getClaims() does not exist in @supabase/ssr — used getUser() for expired token detection on nova-senha and aceitar-convite
 - Plan 00-07: signOut Server Action extracted to src/app/actions/auth.ts for reuse; barber layout redirects owner role to /dashboard (not /entrar)
 - Phase 02 UAT: BarberAvatar com onError handler — photo_url inválida exibia alt text no lugar do avatar; corrigido com estado de erro no componente
+- Plan 03-04: postgres_changes escolhido sobre Broadcast para Realtime do dashboard — mais robusto, funciona mesmo se broadcastCheckIn falhar
 
 ### Pending Todos
 
@@ -98,6 +99,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-06-02T20:40:04.464Z
-Stopped at: Phase 3 planejada — 4 planos prontos. Execute /gsd:execute-phase 3.
+Last session: 2026-06-02T21:45:00.000Z
+Stopped at: Phase 3 executada — 4/4 planos completos. Execute /gsd:verify-work 3.
 Resume file: None
