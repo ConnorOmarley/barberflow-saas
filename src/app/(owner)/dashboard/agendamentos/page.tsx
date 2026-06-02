@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { DashboardShell } from '@/components/shell/dashboard-shell'
 import { AppointmentList } from './components/appointment-list'
 import { CheckInListener } from '@/components/dashboard/check-in-listener'
+import { NewAppointmentButton } from './components/new-appointment-button'
 
 export const metadata: Metadata = {
   title: 'Agendamentos | BarberFlow',
@@ -63,11 +64,14 @@ export default async function AgendamentosPage() {
               Todos os agendamentos do seu estabelecimento
             </p>
           </div>
-          {pendingCount > 0 && (
-            <span className="ml-auto inline-flex items-center rounded-full border border-yellow-500/30 bg-yellow-500/15 px-3 py-1 text-sm font-semibold text-yellow-400">
-              {pendingCount} pendente{pendingCount !== 1 ? 's' : ''}
-            </span>
-          )}
+          <div className="ml-auto flex items-center gap-3">
+            {pendingCount > 0 && (
+              <span className="inline-flex items-center rounded-full border border-yellow-500/30 bg-yellow-500/15 px-3 py-1 text-sm font-semibold text-yellow-400">
+                {pendingCount} pendente{pendingCount !== 1 ? 's' : ''}
+              </span>
+            )}
+            <NewAppointmentButton />
+          </div>
         </div>
         <AppointmentList appointments={(appointments ?? []) as AppointmentWithDetails[]} />
       </div>
