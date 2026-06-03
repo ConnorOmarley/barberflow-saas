@@ -173,7 +173,8 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
         const bookedSlots = new Set<string>()
         for (const appt of existingAppts ?? []) {
           const apptDate = new Date(appt.start_time)
-          const slotStr = `${String(apptDate.getUTCHours()).padStart(2, '0')}:${String(apptDate.getUTCMinutes()).padStart(2, '0')}`
+          // Usar hora local do browser (não UTC) — slots são gerados em hora local
+          const slotStr = `${String(apptDate.getHours()).padStart(2, '0')}:${String(apptDate.getMinutes()).padStart(2, '0')}`
           bookedSlots.add(slotStr)
         }
 
