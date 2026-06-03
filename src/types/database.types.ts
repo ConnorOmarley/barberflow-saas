@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       appointments: {
@@ -261,6 +286,135 @@ export type Database = {
           },
         ]
       }
+      loyalty_redemptions: {
+        Row: {
+          barbershop_id: string
+          client_id: string
+          created_at: string
+          id: string
+          notes: string | null
+          redeemed_by: string
+          stamps_used: number
+        }
+        Insert: {
+          barbershop_id: string
+          client_id: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          redeemed_by: string
+          stamps_used: number
+        }
+        Update: {
+          barbershop_id?: string
+          client_id?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          redeemed_by?: string
+          stamps_used?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_redemptions_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loyalty_redemptions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loyalty_rules: {
+        Row: {
+          barbershop_id: string
+          created_at: string
+          id: string
+          is_active: boolean
+          reward_description: string
+          stamps_required: number
+          updated_at: string
+        }
+        Insert: {
+          barbershop_id: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          reward_description?: string
+          stamps_required?: number
+          updated_at?: string
+        }
+        Update: {
+          barbershop_id?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          reward_description?: string
+          stamps_required?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_rules_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: true
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loyalty_stamps: {
+        Row: {
+          appointment_id: string
+          barbershop_id: string
+          client_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          appointment_id: string
+          barbershop_id: string
+          client_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          appointment_id?: string
+          barbershop_id?: string
+          client_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_stamps_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loyalty_stamps_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loyalty_stamps_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -333,6 +487,35 @@ export type Database = {
             columns: ["barbershop_id"]
             isOneToOne: false
             referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      used_qr_tokens: {
+        Row: {
+          appointment_id: string
+          consumed_at: string
+          id: string
+          token_hash: string
+        }
+        Insert: {
+          appointment_id: string
+          consumed_at?: string
+          id?: string
+          token_hash: string
+        }
+        Update: {
+          appointment_id?: string
+          consumed_at?: string
+          id?: string
+          token_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "used_qr_tokens_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
             referencedColumns: ["id"]
           },
         ]
@@ -512,6 +695,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {},
   },
