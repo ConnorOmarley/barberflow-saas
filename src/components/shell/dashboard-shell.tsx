@@ -31,7 +31,7 @@ const OWNER_NAV: NavItem[] = [
   { label: "Serviços", icon: Scissors, href: "/dashboard/servicos" },
   { label: "Agendamentos", icon: CalendarDays, href: "/dashboard/agendamentos" },
   { label: "Financeiro", icon: Wallet },
-  { label: "Fidelidade", icon: Stamp },
+  { label: "Fidelidade", icon: Stamp, href: "/dashboard/fidelidade" },
   { label: "Equipe", icon: UsersRound, href: "/dashboard/equipe" },
   { label: "Relatórios", icon: BarChart3 },
   { label: "Marketing", icon: Megaphone },
