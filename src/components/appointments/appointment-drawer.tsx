@@ -15,7 +15,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from '@/components/ui/select'
 import { ClientCombobox } from './client-combobox'
 import { createAppointment } from '@/app/actions/appointments'
@@ -299,12 +298,12 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 onValueChange={(v) => setSelectedBarberId(v ?? '')}
                 disabled={isLoadingBarbers}
               >
-                <SelectTrigger id="barber-select" aria-label="Selecionar barbeiro">
-                  <SelectValue
-                    placeholder={
-                      isLoadingBarbers ? 'Carregando...' : 'Selecione um barbeiro'
-                    }
-                  />
+                <SelectTrigger id="barber-select" className="w-full" aria-label="Selecionar barbeiro">
+                  <span className={`text-sm truncate ${!selectedBarberId ? 'text-muted-foreground' : ''}`}>
+                    {selectedBarberId
+                      ? (barbers.find((b) => b.id === selectedBarberId)?.name ?? 'Barbeiro')
+                      : isLoadingBarbers ? 'Carregando...' : 'Selecione um barbeiro'}
+                  </span>
                 </SelectTrigger>
                 <SelectContent>
                   {barbers.map((barber) => (
@@ -324,31 +323,34 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 onValueChange={(v) => setSelectedServiceId(v ?? '')}
                 disabled={!selectedBarberId || isLoadingServices}
               >
-                <SelectTrigger id="service-select" aria-label="Selecionar serviço">
-                  <SelectValue
-                    placeholder={
-                      !selectedBarberId
-                        ? 'Selecione o barbeiro primeiro'
-                        : isLoadingServices
-                        ? 'Carregando...'
-                        : services.length === 0
-                        ? 'Nenhum serviço disponível'
-                        : 'Selecione um serviço'
-                    }
-                  />
+                <SelectTrigger id="service-select" className="w-full" aria-label="Selecionar serviço">
+                  <span className={`text-sm truncate ${!selectedServiceId ? 'text-muted-foreground' : ''}`}>
+                    {selectedServiceId
+                      ? (services.find((s) => s.id === selectedServiceId)?.name ?? 'Serviço')
+                      : !selectedBarberId ? 'Selecione o barbeiro primeiro'
+                        : isLoadingServices ? 'Carregando...'
+                        : services.length === 0 ? 'Nenhum serviço disponível'
+                        : 'Selecione um serviço'}
+                  </span>
                 </SelectTrigger>
                 <SelectContent>
                   {services.map((svc) => (
                     <SelectItem key={svc.id} value={svc.id}>
-                      <span>{svc.name}</span>
-                      <span className="ml-2 text-xs text-muted-foreground tabular-nums">
-                        {svc.duration_minutes}min · R${' '}
-                        {svc.price.toFixed(2)}
-                      </span>
+                      {svc.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+              {/* Metadados do serviço selecionado abaixo do select */}
+              {selectedServiceId && (() => {
+                const svc = services.find((s) => s.id === selectedServiceId)
+                if (!svc) return null
+                return (
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {svc.duration_minutes} min · R$ {Number(svc.price).toFixed(2)}
+                  </p>
+                )
+              })()}
             </div>
 
             {/* Data */}
@@ -373,18 +375,15 @@ export function AppointmentDrawer({ open, onOpenChange }: AppointmentDrawerProps
                 onValueChange={(v) => setSelectedTime(v ?? '')}
                 disabled={!selectedBarberId || !selectedDate || isLoadingSlots}
               >
-                <SelectTrigger id="time-select" aria-label="Selecionar horário">
-                  <SelectValue
-                    placeholder={
-                      !selectedBarberId || !selectedDate
-                        ? 'Selecione o barbeiro e a data primeiro'
-                        : isLoadingSlots
-                        ? 'Carregando horários...'
-                        : availableSlots.length === 0
-                        ? 'Nenhum horário disponível para este dia'
-                        : 'Selecione um horário'
-                    }
-                  />
+                <SelectTrigger id="time-select" className="w-full" aria-label="Selecionar horário">
+                  <span className={`text-sm ${!selectedTime ? 'text-muted-foreground' : ''}`}>
+                    {selectedTime
+                      ? selectedTime
+                      : !selectedBarberId || !selectedDate ? 'Selecione o barbeiro e a data primeiro'
+                        : isLoadingSlots ? 'Carregando horários...'
+                        : availableSlots.length === 0 ? 'Nenhum horário disponível para este dia'
+                        : 'Selecione um horário'}
+                  </span>
                 </SelectTrigger>
                 <SelectContent>
                   {availableSlots.map((slot) => (

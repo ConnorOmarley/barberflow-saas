@@ -40,10 +40,10 @@
 
 ### QR Check-In
 
-- [ ] **QR-01**: Sistema gera QR code único e assinado para cada agendamento confirmado
-- [ ] **QR-02**: Cliente escaneia QR com câmera do celular e status muda automaticamente para CHECKED_IN
-- [ ] **QR-03**: QR é válido apenas na janela de ±30 minutos do horário agendado (prevenção de replay)
-- [ ] **QR-04**: QR é revogado automaticamente em cancelamento ou remarcação
+- [x] **QR-01**: Sistema gera QR code único e assinado para cada agendamento confirmado
+- [x] **QR-02**: Cliente escaneia QR com câmera do celular e status muda automaticamente para CHECKED_IN
+- [x] **QR-03**: QR é válido apenas na janela de ±30 minutos do horário agendado (prevenção de replay)
+- [x] **QR-04**: QR é revogado automaticamente em cancelamento ou remarcação
 
 ### Loyalty — Carimbo Digital
 
@@ -168,10 +168,10 @@
 | SVC-01 | Phase 1 — Owner Onboarding + Barber & Service Setup | Pending |
 | SVC-02 | Phase 1 — Owner Onboarding + Barber & Service Setup | Pending |
 | SVC-03 | Phase 1 — Owner Onboarding + Barber & Service Setup | Pending |
-| QR-01 | Phase 3 — QR Check-In | Pending |
-| QR-02 | Phase 3 — QR Check-In | Pending |
-| QR-03 | Phase 3 — QR Check-In | Pending |
-| QR-04 | Phase 3 — QR Check-In | Pending |
+| QR-01 | Phase 3 — QR Check-In | Complete |
+| QR-02 | Phase 3 — QR Check-In | Complete |
+| QR-03 | Phase 3 — QR Check-In | Complete |
+| QR-04 | Phase 3 — QR Check-In | Complete |
 | LOY-01 | Phase 4 — Loyalty (Carimbo Digital) | Pending |
 | LOY-02 | Phase 4 — Loyalty (Carimbo Digital) | Pending |
 | LOY-03 | Phase 4 — Loyalty (Carimbo Digital) | Pending |

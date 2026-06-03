@@ -1,7 +1,60 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { revalidatePath } from 'next/cache'
+
+// ─── createStampOnComplete ────────────────────────────────────────────────────
+
+/**
+ * createStampOnComplete — Helper interno para auto-stamp após COMPLETED.
+ *
+ * NÃO exportado — uso exclusivo de updateAppointmentStatus neste arquivo.
+ * Duplicado intencionalmente de loyalty.ts para evitar import circular
+ * entre Server Actions (Next.js não suporta imports circulares em 'use server').
+ *
+ * Trata 23505 (unique_violation) como no-op — idempotência garantida pelo
+ * UNIQUE INDEX loyalty_stamps_appointment_id_idx no banco.
+ *
+ * Fire-and-forget: falha NUNCA bloqueia o status update (Pitfall 2 da RESEARCH).
+ */
+async function createStampOnComplete(appointmentId: string, barbershopId: string): Promise<void> {
+  try {
+    const admin = createAdminClient()
+
+    // Buscar client_id do appointment (barbershopId já validado pelo chamador via JWT)
+    const { data: appt, error: apptError } = await admin
+      .from('appointments')
+      .select('client_id')
+      .eq('id', appointmentId)
+      .single()
+
+    if (apptError || !appt?.client_id) {
+      // Appointment não encontrado ou sem cliente — retorna silenciosamente
+      return
+    }
+
+    const { error } = await admin
+      .from('loyalty_stamps')
+      .insert({
+        barbershop_id: barbershopId,
+        client_id: appt.client_id,
+        appointment_id: appointmentId,
+      })
+
+    if (error) {
+      if (error.code === '23505') {
+        // Unique violation — stamp já existe para este appointment, no-op intencional
+        return
+      }
+      console.error('[loyalty] stamp insert error:', error.message)
+    }
+  } catch (err) {
+    console.error('[loyalty] createStampOnComplete error:', err)
+  }
+}
+
+// ─── updateAppointmentStatus ──────────────────────────────────────────────────
 
 /**
  * updateAppointmentStatus — Atualiza o status de um agendamento.
@@ -11,6 +64,9 @@ import { revalidatePath } from 'next/cache'
  *
  * Threat model T-01-17: barbershop_id do JWT garante que barbeiro não pode
  * atualizar appointments de outro tenant.
+ *
+ * Auto-stamp: quando status = COMPLETED, dispara createStampOnComplete em
+ * fire-and-forget — falha do stamp NUNCA bloqueia o status update.
  */
 export async function updateAppointmentStatus(
   appointmentId: string,
@@ -34,10 +90,18 @@ export async function updateAppointmentStatus(
 
   if (error) return { error: error.message }
 
+  // Auto-stamp: fire-and-forget — falha nunca bloqueia status update
+  if (status === 'COMPLETED') {
+    void createStampOnComplete(appointmentId, barbershop_id)
+  }
+
   revalidatePath('/agenda')
   revalidatePath('/dashboard')
+  revalidatePath('/dashboard/fidelidade')
   return { success: true }
 }
+
+// ─── cancelAppointment ────────────────────────────────────────────────────────
 
 /**
  * cancelAppointment — Cancela um agendamento via UPDATE (nunca DELETE).
@@ -77,6 +141,8 @@ export async function cancelAppointment(
   revalidatePath('/dashboard')
   return { success: true }
 }
+
+// ─── createAppointment ────────────────────────────────────────────────────────
 
 /**
  * createAppointment — Cria um agendamento manual com conflict check server-side.

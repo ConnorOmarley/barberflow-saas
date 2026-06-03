@@ -9,7 +9,7 @@ BarberFlow is built in 9 phases that deliver progressively more value to barbers
 - [x] **Phase 0: Infrastructure & Multi-Tenancy Baseline** - Supabase schema with RLS on every table, JWT with role + tenant claims, Next.js route groups, CI guard ✓ 2026-05-31
 - [ ] **Phase 1: Owner Onboarding + Barber & Service Setup** - Guided onboarding, barber profiles, service catalogue, commission config, manual booking by staff
 - [x] **Phase 2: Client Booking Portal** - Public booking flow (service → barber → slot), real-time slot blocking, status lifecycle ✓ 2026-06-01
-- [ ] **Phase 3: QR Check-In** - Signed QR per appointment, scan-to-CHECKED_IN, revocation on cancel
+- [x] **Phase 3: QR Check-In** - Signed QR per appointment, scan-to-CHECKED_IN, revocation on cancel ✓ 2026-06-02
 - [ ] **Phase 4: Loyalty — Carimbo Digital** - Per-tenant loyalty rules, auto-stamp on COMPLETED, redemption by owner
 - [ ] **Phase 5: WhatsApp Notifications** - Confirmation and reminder messages via WhatsApp Business API, LGPD opt-in
 - [ ] **Phase 6: SaaS Billing (Asaas)** - Subscription creation on onboarding, access enforcement, idempotent webhook processing
@@ -105,10 +105,10 @@ Plans:
 **UI hint:** yes
 
 Plans:
-- [ ] 03-01-PLAN.md — [CHECKPOINT] Migration: tabela used_qr_tokens + RLS service-role-only + QR_HMAC_SECRET no .env.local
-- [ ] 03-02-PLAN.md — generateQrToken Server Action + AppointmentQRCode component + página pública /qr/[appointmentId] + botão QR no dashboard
-- [ ] 03-03-PLAN.md — processQrCheckIn Server Action (HMAC verify + time window + single-use) + página pública /qr/check-in
-- [ ] 03-04-PLAN.md — Realtime postgres_changes listener + CheckInListener component + toast "Cliente chegou!" + CHECKED_IN → COMPLETED
+- [x] 03-01-PLAN.md — [CHECKPOINT] Migration: tabela used_qr_tokens + RLS service-role-only + QR_HMAC_SECRET no .env.local
+- [x] 03-02-PLAN.md — generateQrToken Server Action + AppointmentQRCode component + página pública /qr/[appointmentId] + botão QR no dashboard
+- [x] 03-03-PLAN.md — processQrCheckIn Server Action (HMAC verify + time window + single-use) + página pública /qr/check-in
+- [x] 03-04-PLAN.md — Realtime postgres_changes listener + CheckInListener component + toast "Cliente chegou!" + CHECKED_IN → COMPLETED
 
 ### Phase 4: Loyalty — Carimbo Digital
 **Goal:** Clients automatically accumulate loyalty stamps as appointments are completed, and owners can redeem rewards when a client's card is full
@@ -119,8 +119,13 @@ Plans:
   1. Owner can configure the loyalty rule for their barbershop (e.g., "10 haircuts = 1 free") from the dashboard
   2. When a barber marks an appointment COMPLETED, a loyalty stamp is automatically registered on the client's card — no manual action needed
   3. Owner can see a client's loyalty card progress in the dashboard and redeem a completed card (applying a discount or free service) with a single action
-**Plans:** TBD
+**Plans:** 3 plans
 **UI hint:** yes
+
+Plans:
+- [ ] 04-01-PLAN.md — [CHECKPOINT] Migration: loyalty_rules + loyalty_stamps + loyalty_redemptions (RLS + índices) + types regeneration
+- [ ] 04-02-PLAN.md — loyalty.ts actions (getLoyaltyRule, upsertLoyaltyRule, redeemLoyaltyCard) + hook auto-stamp em appointments.ts + página /dashboard/fidelidade + drawer de configuração
+- [ ] 04-03-PLAN.md — LoyaltyCardList component com progresso por cliente, barra visual e botão Resgatar condicional
 
 ### Phase 5: WhatsApp Notifications
 **Goal:** Clients automatically receive WhatsApp messages confirming their booking and reminding them before the appointment, with explicit LGPD opt-in captured and stored
@@ -184,8 +189,8 @@ Plans:
 | 0. Infrastructure & Multi-Tenancy Baseline | 8/8 | ✅ Complete | 2026-05-31 |
 | 1. Owner Onboarding + Barber & Service Setup | 0/TBD | Not started | - |
 | 2. Client Booking Portal | 4/4 | ✅ Complete | 2026-06-01 |
-| 3. QR Check-In | 0/4 | Planned | - |
-| 4. Loyalty — Carimbo Digital | 0/TBD | Not started | - |
+| 3. QR Check-In | 4/4 | ✅ Complete | 2026-06-02 |
+| 4. Loyalty — Carimbo Digital | 0/3 | Not started | - |
 | 5. WhatsApp Notifications | 0/TBD | Not started | - |
 | 6. SaaS Billing (Asaas) | 0/TBD | Not started | - |
 | 7. Financial Reports & Dashboard | 0/TBD | Not started | - |
