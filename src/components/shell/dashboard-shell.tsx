@@ -27,7 +27,7 @@ type NavItem = { label: string; icon: LucideIcon; href?: string };
 const OWNER_NAV: NavItem[] = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
   { label: "Agenda", icon: Calendar, href: "/dashboard/agenda" },
-  { label: "Clientes", icon: Users },
+  { label: "Clientes", icon: Users, href: "/dashboard/clientes" },
   { label: "Serviços", icon: Scissors, href: "/dashboard/servicos" },
   { label: "Agendamentos", icon: CalendarDays, href: "/dashboard/agendamentos" },
   { label: "Financeiro", icon: Wallet },
