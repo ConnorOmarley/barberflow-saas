@@ -1,5 +1,13 @@
 # 🪒 Barberflow
 
+![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square)
+![shadcn/ui](https://img.shields.io/badge/shadcn_ui-000000?style=flat-square)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square)
+![Asaas](https://img.shields.io/badge/Asaas-Payments-14B8A6?style=flat-square)
+
 SaaS multi-tenant de **agendamento e gestão para barbearias**. Donos gerenciam barbeiros, serviços, horários e financeiro; clientes fazem agendamento direto pelo portal público de cada barbearia.
 
 > Status: **em desenvolvimento ativo** — atualmente na Fase 6 (billing SaaS via Asaas), desenvolvimento baseado em fases (roadmap até White Label).
